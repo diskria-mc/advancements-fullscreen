@@ -1,14 +1,11 @@
 package com.diskree.advancementsfullscreen;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.advancement.AdvancementsScreen;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.*;
 import net.minecraft.resource.metadata.ResourceMetadata;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Function;
 
 public class FullscreenAdvancementsWindow extends Sprite {
 
@@ -46,12 +43,12 @@ public class FullscreenAdvancementsWindow extends Sprite {
 
     public void draw(
         @NotNull DrawContext context,
-        Function<Identifier, RenderLayer> renderLayers,
+        RenderPipeline pipeline,
         int windowX,
         int windowY,
         int windowWidth,
         int windowHeight
     ) {
-        context.drawSpriteNineSliced(renderLayers, this, NINE_SLICE, windowX, windowY, windowWidth, windowHeight, -1);
+        context.drawSpriteNineSliced(pipeline, this, NINE_SLICE, windowX, windowY, windowWidth, windowHeight, -1);
     }
 }

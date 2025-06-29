@@ -3,6 +3,7 @@ package com.diskree.advancementsfullscreen.injection.mixin;
 import com.diskree.advancementsfullscreen.AdvancementsFullscreenMod;
 import com.diskree.advancementsfullscreen.FullscreenAdvancementsWindow;
 import com.diskree.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -129,13 +130,13 @@ public abstract class AdvancementsScreenMixin extends Screen implements Advancem
         method = "drawWindow",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V",
+            target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIFFIIII)V",
             ordinal = 0
         )
     )
     public void drawFullscreenWindow(
         DrawContext context,
-        Function<Identifier, RenderLayer> renderLayers,
+        RenderPipeline pipeline,
         Identifier sprite,
         int x,
         int y,
@@ -148,7 +149,7 @@ public abstract class AdvancementsScreenMixin extends Screen implements Advancem
     ) {
         fullscreenAdvancementsWindow.draw(
             context,
-            renderLayers,
+            pipeline,
             windowHorizontalMargin,
             windowVerticalMargin,
             windowWidth,
