@@ -1,4 +1,4 @@
-package com.diskree.advancementsfullscreen.injection.extension;
+package com.diskria.advancementsfullscreen.injection.extension;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

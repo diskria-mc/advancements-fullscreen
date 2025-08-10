@@ -1,6 +1,6 @@
-package com.diskree.advancementsfullscreen.injection.mixin;
+package com.diskria.advancementsfullscreen.injection.mixin;
 
-import com.diskree.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
+import com.diskria.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -27,11 +27,11 @@ public class AdvancementTabTypeMixin {
     }
 
     @ModifyConstant(
-        method = "getTabX",
-        constant = @Constant(
-            intValue = WINDOW_WIDTH - 4,
-            ordinal = 0
-        )
+            method = "getTabX",
+            constant = @Constant(
+                    intValue = WINDOW_WIDTH - 4,
+                    ordinal = 0
+            )
     )
     public int calculateTabXForFullscreenAtRightTabType(int originalValue) {
         if (getCurrentScreen() instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -41,11 +41,11 @@ public class AdvancementTabTypeMixin {
     }
 
     @ModifyConstant(
-        method = "getTabY",
-        constant = @Constant(
-            intValue = WINDOW_HEIGHT - 4,
-            ordinal = 0
-        )
+            method = "getTabY",
+            constant = @Constant(
+                    intValue = WINDOW_HEIGHT - 4,
+                    ordinal = 0
+            )
     )
     public int calculateTabYForFullscreenAtBelowTabType(int originalValue) {
         if (getCurrentScreen() instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -55,16 +55,16 @@ public class AdvancementTabTypeMixin {
     }
 
     @ModifyArgs(
-        method = "drawBackground",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"
-        )
+            method = "drawBackground",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"
+            )
     )
     public void fixTabTexture(
-        @NotNull Args args,
-        @Local(argsOnly = true) boolean isSelected,
-        @Local(ordinal = 0) @NotNull AdvancementTabType.Textures textures
+            @NotNull Args args,
+            @Local(argsOnly = true) boolean isSelected,
+            @Local(ordinal = 0) @NotNull AdvancementTabType.Textures textures
     ) {
         Screen currentScreen = getCurrentScreen();
         if (currentScreen instanceof AdvancementsScreenExtension advancementsScreenExtension) {

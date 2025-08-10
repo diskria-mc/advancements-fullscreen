@@ -1,6 +1,6 @@
-package com.diskree.advancementsfullscreen.injection.mixin;
+package com.diskria.advancementsfullscreen.injection.mixin;
 
-import com.diskree.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
+import com.diskria.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
 import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.client.gui.screen.advancement.AdvancementsScreen;
 import org.spongepowered.asm.mixin.Final;
@@ -20,11 +20,11 @@ public class AdvancementTabMixin {
     private AdvancementsScreen screen;
 
     @ModifyConstant(
-        method = "move",
-        constant = @Constant(
-            intValue = PAGE_WIDTH,
-            ordinal = 0
-        )
+            method = "move",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH,
+                    ordinal = 0
+            )
     )
     private int calculateMoveLimitByX(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -34,11 +34,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "move",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT,
-            ordinal = 0
-        )
+            method = "move",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT,
+                    ordinal = 0
+            )
     )
     private int calculateMoveLimitByY(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -48,11 +48,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "move",
-        constant = @Constant(
-            intValue = PAGE_WIDTH,
-            ordinal = 1
-        )
+            method = "move",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH,
+                    ordinal = 1
+            )
     )
     private int calculateMoveMinimumX(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -62,11 +62,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "move",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT,
-            ordinal = 1
-        )
+            method = "move",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT,
+                    ordinal = 1
+            )
     )
     private int calculateMoveMinimumY(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -76,11 +76,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "drawWidgetTooltip",
-        constant = @Constant(
-            intValue = PAGE_WIDTH,
-            ordinal = 0
-        )
+            method = "drawWidgetTooltip",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH,
+                    ordinal = 0
+            )
     )
     private int calculateWidthForTooltipDim(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -90,11 +90,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "drawWidgetTooltip",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT,
-            ordinal = 0
-        )
+            method = "drawWidgetTooltip",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT,
+                    ordinal = 0
+            )
     )
     private int calculateHeightForTooltipDim(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -104,11 +104,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "drawWidgetTooltip",
-        constant = @Constant(
-            intValue = PAGE_WIDTH,
-            ordinal = 1
-        )
+            method = "drawWidgetTooltip",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH,
+                    ordinal = 1
+            )
     )
     private int calculateWidthForWidgetHoverCheck(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -118,11 +118,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "drawWidgetTooltip",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT,
-            ordinal = 1
-        )
+            method = "drawWidgetTooltip",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT,
+                    ordinal = 1
+            )
     )
     private int calculateHeightForWidgetHoverCheck(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -132,11 +132,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = PAGE_WIDTH,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH,
+                    ordinal = 0
+            )
     )
     private int drawFullscreenBackgroundByWidth(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -146,11 +146,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT,
+                    ordinal = 0
+            )
     )
     private int drawFullscreenBackgroundByHeight(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -160,11 +160,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = PAGE_WIDTH / 2,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH / 2,
+                    ordinal = 0
+            )
     )
     private int calculateWidthForOriginX(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -174,11 +174,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT / 2,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT / 2,
+                    ordinal = 0
+            )
     )
     private int calculateHeightForOriginY(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -188,11 +188,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = 15,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = 15,
+                    ordinal = 0
+            )
     )
     private int calculateWidthForBackgroundGridColumnsCount(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -202,11 +202,11 @@ public class AdvancementTabMixin {
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = 8,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = 8,
+                    ordinal = 0
+            )
     )
     private int calculateHeightForBackgroundGridRowsCount(int originalValue) {
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {

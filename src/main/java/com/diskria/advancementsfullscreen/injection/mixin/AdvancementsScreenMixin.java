@@ -1,8 +1,8 @@
-package com.diskree.advancementsfullscreen.injection.mixin;
+package com.diskria.advancementsfullscreen.injection.mixin;
 
-import com.diskree.advancementsfullscreen.AdvancementsFullscreenMod;
-import com.diskree.advancementsfullscreen.FullscreenAdvancementsWindow;
-import com.diskree.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
+import com.diskria.advancementsfullscreen.AdvancementsFullscreenMod;
+import com.diskria.advancementsfullscreen.FullscreenAdvancementsWindow;
+import com.diskria.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.client.MinecraftClient;
@@ -15,7 +15,6 @@ import net.minecraft.client.gui.screen.advancement.AdvancementsScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
 import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static net.minecraft.client.gui.screen.advancement.AdvancementsScreen.*;
 
@@ -127,172 +125,172 @@ public abstract class AdvancementsScreenMixin extends Screen implements Advancem
     private Map<AdvancementEntry, AdvancementTab> tabs;
 
     @Redirect(
-        method = "drawWindow",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIFFIIII)V",
-            ordinal = 0
-        )
+            method = "drawWindow",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIFFIIII)V",
+                    ordinal = 0
+            )
     )
     public void drawFullscreenWindow(
-        DrawContext context,
-        RenderPipeline pipeline,
-        Identifier sprite,
-        int x,
-        int y,
-        float u,
-        float v,
-        int width,
-        int height,
-        int textureWidth,
-        int textureHeight
+            DrawContext context,
+            RenderPipeline pipeline,
+            Identifier sprite,
+            int x,
+            int y,
+            float u,
+            float v,
+            int width,
+            int height,
+            int textureWidth,
+            int textureHeight
     ) {
         fullscreenAdvancementsWindow.draw(
-            context,
-            pipeline,
-            windowHorizontalMargin,
-            windowVerticalMargin,
-            windowWidth,
-            windowHeight
+                context,
+                pipeline,
+                windowHorizontalMargin,
+                windowVerticalMargin,
+                windowWidth,
+                windowHeight
         );
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = WINDOW_WIDTH,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = WINDOW_WIDTH,
+                    ordinal = 0
+            )
     )
     private int calculateHalfOfScreenWidthOnRender(int originalValue) {
         return advancementsfullscreen$getWindowWidth(true);
     }
 
     @ModifyConstant(
-        method = "render",
-        constant = @Constant(
-            intValue = WINDOW_HEIGHT,
-            ordinal = 0
-        )
+            method = "render",
+            constant = @Constant(
+                    intValue = WINDOW_HEIGHT,
+                    ordinal = 0
+            )
     )
     private int calculateHalfOfScreenHeightOnRender(int originalValue) {
         return advancementsfullscreen$getWindowHeight(true);
     }
 
     @ModifyConstant(
-        method = "mouseClicked",
-        constant = @Constant(
-            intValue = WINDOW_WIDTH,
-            ordinal = 0
-        )
+            method = "mouseClicked",
+            constant = @Constant(
+                    intValue = WINDOW_WIDTH,
+                    ordinal = 0
+            )
     )
     private int calculateHalfOfScreenWidthOnMouseClicked(int originalValue) {
         return advancementsfullscreen$getWindowWidth(true);
     }
 
     @ModifyConstant(
-        method = "mouseClicked",
-        constant = @Constant(
-            intValue = WINDOW_HEIGHT,
-            ordinal = 0
-        )
+            method = "mouseClicked",
+            constant = @Constant(
+                    intValue = WINDOW_HEIGHT,
+                    ordinal = 0
+            )
     )
     private int calculateHalfOfScreenHeightOnMouseClicked(int originalValue) {
         return advancementsfullscreen$getWindowHeight(true);
     }
 
     @ModifyConstant(
-        method = "drawAdvancementTree",
-        constant = @Constant(
-            intValue = PAGE_WIDTH,
-            ordinal = 0
-        )
+            method = "drawAdvancementTree",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH,
+                    ordinal = 0
+            )
     )
     private int calculateWidthOfEmptyBlackBackground(int originalValue) {
         return advancementsfullscreen$getWindowWidth(false);
     }
 
     @ModifyConstant(
-        method = "drawAdvancementTree",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT,
-            ordinal = 0
-        )
+            method = "drawAdvancementTree",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT,
+                    ordinal = 0
+            )
     )
     private int calculateHeightOfEmptyBlackBackground(int originalValue) {
         return advancementsfullscreen$getWindowHeight(false);
     }
 
     @ModifyConstant(
-        method = "drawAdvancementTree",
-        constant = @Constant(
-            intValue = PAGE_WIDTH / 2,
-            ordinal = 0
-        )
+            method = "drawAdvancementTree",
+            constant = @Constant(
+                    intValue = PAGE_WIDTH / 2,
+                    ordinal = 0
+            )
     )
     private int moveEmptyTextAndSadLabelTextToCenterOfWidth(int originalValue) {
         return advancementsfullscreen$getWindowWidth(false) / 2;
     }
 
     @ModifyConstant(
-        method = "drawAdvancementTree",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT / 2,
-            ordinal = 0
-        )
+            method = "drawAdvancementTree",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT / 2,
+                    ordinal = 0
+            )
     )
     private int moveEmptyTextToCenterOfHeight(int originalValue) {
         return advancementsfullscreen$getWindowHeight(false) / 2;
     }
 
     @ModifyConstant(
-        method = "drawAdvancementTree",
-        constant = @Constant(
-            intValue = PAGE_HEIGHT,
-            ordinal = 1
-        )
+            method = "drawAdvancementTree",
+            constant = @Constant(
+                    intValue = PAGE_HEIGHT,
+                    ordinal = 1
+            )
     )
     private int moveSadLabelTextToBottom(int originalValue) {
         return advancementsfullscreen$getWindowHeight(false);
     }
 
     @Redirect(
-        method = "init",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;addHeader(Lnet/minecraft/text/Text;Lnet/minecraft/client/font/TextRenderer;)V",
-            ordinal = 0
-        )
+            method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;addHeader(Lnet/minecraft/text/Text;Lnet/minecraft/client/font/TextRenderer;)V",
+                    ordinal = 0
+            )
     )
     private void removeHeader(ThreePartsLayoutWidget layout, Text text, TextRenderer textRenderer) {
     }
 
     @Redirect(
-        method = "init",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;addFooter(Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;",
-            ordinal = 0
-        )
+            method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;addFooter(Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;",
+                    ordinal = 0
+            )
     )
     private <T extends Widget> @Nullable T removeFooter(ThreePartsLayoutWidget layout, T widget) {
         return null;
     }
 
     @Redirect(
-        method = "init",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;forEachChild(Ljava/util/function/Consumer;)V",
-            ordinal = 0
-        )
+            method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;forEachChild(Ljava/util/function/Consumer;)V",
+                    ordinal = 0
+            )
     )
     private void cancelAddDrawableChild(ThreePartsLayoutWidget layout, Consumer<ClickableWidget> consumer) {
     }
 
     @Inject(
-        method = "init",
-        at = @At(value = "RETURN")
+            method = "init",
+            at = @At(value = "RETURN")
     )
     private void calculateWindowSizeAndPositionOnInit(CallbackInfo ci) {
         calculateWindowSizeAndPosition(width, height);

@@ -1,4 +1,4 @@
-package com.diskree.advancementsfullscreen;
+package com.diskria.advancementsfullscreen;
 
 import net.fabricmc.api.ClientModInitializer;
 
