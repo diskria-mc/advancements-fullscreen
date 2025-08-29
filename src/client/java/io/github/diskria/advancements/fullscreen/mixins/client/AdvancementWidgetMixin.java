@@ -1,6 +1,6 @@
-package com.diskria.advancementsfullscreen.injection.mixin;
+package io.github.diskria.advancements.fullscreen.mixins.client;
 
-import com.diskria.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
+import io.github.diskria.advancements.fullscreen.extensions.AdvancementsScreenExtension;
 import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.client.gui.screen.advancement.AdvancementWidget;
 import org.spongepowered.asm.mixin.Final;
@@ -19,15 +19,15 @@ public class AdvancementWidgetMixin {
     private AdvancementTab tab;
 
     @ModifyConstant(
-            method = "drawTooltip",
-            constant = @Constant(
-                    intValue = PAGE_HEIGHT,
-                    ordinal = 0
-            )
+        method = "drawTooltip",
+        constant = @Constant(
+            intValue = PAGE_HEIGHT,
+            ordinal = 0
+        )
     )
     public int drawTooltipModifyHeight(int originalValue) {
         if (tab.getScreen() instanceof AdvancementsScreenExtension screenImpl) {
-            return screenImpl.advancementsfullscreen$getWindowHeight(false);
+            return screenImpl.advancements_fullscreen_getWindowHeight(false);
         }
         return originalValue;
     }

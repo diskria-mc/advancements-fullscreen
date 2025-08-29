@@ -1,6 +1,6 @@
-package com.diskria.advancementsfullscreen.injection.mixin;
+package io.github.diskria.advancements.fullscreen.mixins.client;
 
-import com.diskria.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
+import io.github.diskria.advancements.fullscreen.extensions.AdvancementsScreenExtension;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -27,44 +27,44 @@ public class AdvancementTabTypeMixin {
     }
 
     @ModifyConstant(
-            method = "getTabX",
-            constant = @Constant(
-                    intValue = WINDOW_WIDTH - 4,
-                    ordinal = 0
-            )
+        method = "getTabX",
+        constant = @Constant(
+            intValue = WINDOW_WIDTH - 4,
+            ordinal = 0
+        )
     )
     public int calculateTabXForFullscreenAtRightTabType(int originalValue) {
         if (getCurrentScreen() instanceof AdvancementsScreenExtension advancementsScreenExtension) {
-            return advancementsScreenExtension.advancementsfullscreen$getWindowWidth(true) - 4;
+            return advancementsScreenExtension.advancements_fullscreen_getWindowWidth(true) - 4;
         }
         return originalValue;
     }
 
     @ModifyConstant(
-            method = "getTabY",
-            constant = @Constant(
-                    intValue = WINDOW_HEIGHT - 4,
-                    ordinal = 0
-            )
+        method = "getTabY",
+        constant = @Constant(
+            intValue = WINDOW_HEIGHT - 4,
+            ordinal = 0
+        )
     )
     public int calculateTabYForFullscreenAtBelowTabType(int originalValue) {
         if (getCurrentScreen() instanceof AdvancementsScreenExtension advancementsScreenExtension) {
-            return advancementsScreenExtension.advancementsfullscreen$getWindowHeight(true) - 4;
+            return advancementsScreenExtension.advancements_fullscreen_getWindowHeight(true) - 4;
         }
         return originalValue;
     }
 
     @ModifyArgs(
-            method = "drawBackground",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"
-            )
+        method = "drawBackground",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"
+        )
     )
     public void fixTabTexture(
-            @NotNull Args args,
-            @Local(argsOnly = true) boolean isSelected,
-            @Local(ordinal = 0) @NotNull AdvancementTabType.Textures textures
+        @NotNull Args args,
+        @Local(argsOnly = true) boolean isSelected,
+        @Local(ordinal = 0) @NotNull AdvancementTabType.Textures textures
     ) {
         Screen currentScreen = getCurrentScreen();
         if (currentScreen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
@@ -75,8 +75,8 @@ public class AdvancementTabTypeMixin {
             int tabHeight = args.get(5);
             int tabRight = tabLeft + tabWidth;
             int tabBottom = tabTop + tabHeight;
-            int windowLeft = advancementsScreenExtension.advancementsfullscreen$getWindowHorizontalMargin();
-            int windowTop = advancementsScreenExtension.advancementsfullscreen$getWindowVerticalMargin();
+            int windowLeft = advancementsScreenExtension.advancements_fullscreen_getWindowHorizontalMargin();
+            int windowTop = advancementsScreenExtension.advancements_fullscreen_getWindowVerticalMargin();
             int windowRight = currentScreen.width - windowLeft;
             int windowBottom = currentScreen.height - windowTop;
             boolean isFirst;

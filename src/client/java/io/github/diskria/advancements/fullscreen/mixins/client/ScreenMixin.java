@@ -1,6 +1,6 @@
-package com.diskria.advancementsfullscreen.injection.mixin;
+package io.github.diskria.advancements.fullscreen.mixins.client;
 
-import com.diskria.advancementsfullscreen.injection.extension.AdvancementsScreenExtension;
+import io.github.diskria.advancements.fullscreen.extensions.AdvancementsScreenExtension;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ScreenMixin {
 
     @Inject(
-            method = "resize",
-            at = @At(value = "HEAD")
+        method = "resize",
+        at = @At(value = "HEAD")
     )
     private void resizeInAdvancementsScreen(MinecraftClient client, int width, int height, CallbackInfo ci) {
         Screen screen = (Screen) (Object) this;
         if (screen instanceof AdvancementsScreenExtension advancementsScreenExtension) {
-            advancementsScreenExtension.advancementsfullscreen$resize(client, width, height);
+            advancementsScreenExtension.advancements_fullscreen_resize(client, width, height);
         }
     }
 }

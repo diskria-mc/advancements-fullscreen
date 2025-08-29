@@ -1,0 +1,22 @@
+[versions]
+gradle = "9.0.0"
+organizations = "0.2.1"
+build-config = "5.6.7"
+modrinth-minotaur = "2.8.8"
+
+java = "21"
+
+kotlin = "2.2.0"
+
+fabric-loom = "1.11.4"
+fabric-loader = "0.17.2"
+fabric-yarn = "1"
+fabric-kotlin = "1.13.4"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+organizations = { id = "io.github.diskria.organizations", version.ref = "organizations" }
+build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "build-config" }
+modrinth-minotaur = { id = "com.modrinth.minotaur", version.ref = "modrinth-minotaur" }
+fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
