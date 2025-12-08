@@ -1,5 +1,5 @@
 plugins {
-    id("io.github.recrafter.crafter") version "0.3.6"
+    id("io.github.recrafter.crafter") version "1.2.0"
 }
 
 crafter {
