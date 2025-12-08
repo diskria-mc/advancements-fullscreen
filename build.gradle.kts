@@ -1,6 +1,15 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.build.config) apply false
-    alias(libs.plugins.modrinth.minotaur) apply false
+    id("io.github.recrafter.crafter") version "0.3.6"
+}
+
+crafter {
+    mod {
+        name = "Advancements Fullscreen"
+        version = "2.0.0"
+
+        developer {
+            name = "diskria"
+            namespace = "io.github.diskria"
+        }
+    }
 }
