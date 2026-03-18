@@ -2,8 +2,7 @@ package io.github.diskria.advancements_fullscreen.client.gui
 
 import com.mojang.blaze3d.pipeline.RenderPipeline
 import com.mojang.blaze3d.platform.NativeImage
-import io.github.diskria.advancements_fullscreen.generated.*
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import net.minecraft.client.renderer.texture.SpriteContents
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -50,7 +49,7 @@ object FullscreenRenderer {
     }
 
     fun render(
-        graphics: GuiGraphics,
+        graphics: GuiGraphicsExtractor,
         pipeline: RenderPipeline,
         x: Int, y: Int,
         width: Int, height: Int,

@@ -15,27 +15,17 @@ pluginManagement {
             }
         }
 
-        resolvePluginMaven("recipe")
         resolvePluginMaven("crafter")
-
-        mavenLocal()
         gradlePluginPortal()
     }
 }
 
 plugins {
-    id("io.github.recrafter.recipe") version "1.2.0"
+    id("io.github.recrafter.recipe") version "1.2.6"
 }
 
 recipe {
     crafter {
         clientOnly()
-    }
-}
-
-dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    repositories {
-        mavenLocal()
     }
 }
