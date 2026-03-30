@@ -91,44 +91,44 @@ abstract class AdvancementsScreenPatch : Lapis.Patch<AdvancementsScreen>() {
 
     @Hook(_AdvancementsScreen.init::class, Hook.At.Call)
     @AtCall(_HeaderAndFooterLayout.visitWidgets::class, ordinal = [0])
-    fun hideWidgets(@Origin original: Lapis.Call<_HeaderAndFooterLayout.visitWidgets>) {
+    fun hideWidgets() {
     }
 
     @Hook(_AdvancementsScreen.render::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH, ordinal = [0])
-    fun overrideWindowX(@Origin original: Int): Int = fullscreenWindowWidth
+    fun overrideWindowX(): Int = fullscreenWindowWidth
 
     @Hook(_AdvancementsScreen.render::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT, ordinal = [0])
-    fun overrideWindowY(@Origin original: Int): Int = fullscreenWindowHeight
+    fun overrideWindowY(): Int = fullscreenWindowHeight
 
     @Hook(_AdvancementsScreen.mouseClicked::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH, ordinal = [0])
-    fun overrideClickableAreaX(@Origin original: Int): Int = fullscreenWindowWidth
+    fun overrideClickableAreaX(): Int = fullscreenWindowWidth
 
     @Hook(_AdvancementsScreen.mouseClicked::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT, ordinal = [0])
-    fun overrideClickableAreaY(@Origin original: Int): Int = fullscreenWindowHeight
+    fun overrideClickableAreaY(): Int = fullscreenWindowHeight
 
     @Hook(_AdvancementsScreen.renderInside::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
-    fun overrideEmptyBackgroundWidth(@Origin original: Int): Int = fullscreenBackgroundWidth
+    fun overrideEmptyBackgroundWidth(): Int = fullscreenBackgroundWidth
 
     @Hook(_AdvancementsScreen.renderInside::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
-    fun overrideEmptyBackgroundHeight(@Origin original: Int): Int = fullscreenBackgroundHeight
+    fun overrideEmptyBackgroundHeight(): Int = fullscreenBackgroundHeight
 
     @Hook(_AdvancementsScreen.renderInside::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH / 2, ordinal = [0])
-    fun overrideEmptyLabelsX(@Origin original: Int): Int = fullscreenBackgroundWidth / 2
+    fun overrideEmptyLabelsX(): Int = fullscreenBackgroundWidth / 2
 
     @Hook(_AdvancementsScreen.renderInside::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT / 2, ordinal = [0])
-    fun overrideNoAdvancementsLabelY(@Origin original: Int): Int = fullscreenBackgroundHeight / 2
+    fun overrideNoAdvancementsLabelY(): Int = fullscreenBackgroundHeight / 2
 
     @Hook(_AdvancementsScreen.renderInside::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [1])
-    fun overrideVerySadLabelY(@Origin original: Int): Int = fullscreenBackgroundHeight
+    fun overrideVerySadLabelY(): Int = fullscreenBackgroundHeight
 
     companion object {
         private const val SCREEN_MARGIN: Int = 4

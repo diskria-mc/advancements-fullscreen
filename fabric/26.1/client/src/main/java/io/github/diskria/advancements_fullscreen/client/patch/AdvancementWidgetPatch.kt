@@ -17,17 +17,16 @@ abstract class AdvancementWidgetPatch : Lapis.Patch<AdvancementWidget>() {
     @Hook(_AdvancementWidget.drawHover::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
     fun fixHoverOutOfScreen(
-        @Origin original: Int,
-        @Local(1) titleFrameY: Int,
-        @Local(2) titleFrameBottom: Int,
-        @Local(3) descriptionHeight: Int,
-        @Local(4) descriptionHeightWithBorderPadding: Int,
+        @Local(1) titleTop: Int,
+        @Local(2) titleBarBottom: Int,
+        @Local(3) descriptionTextHeight: Int,
+        @Local(4) descriptionHeight: Int,
     ): Int {
-        val hoverBottom = titleFrameBottom + descriptionHeightWithBorderPadding
-        val hoverTop = titleFrameY - descriptionHeight + 1
+        val hoverBottom = titleBarBottom + descriptionHeight
+        val hoverTop = titleTop - descriptionTextHeight + 1
 
         val backgroundBottom = advancementsScreen.fullscreenBackgroundHeight
-        val backgroundTop = descriptionHeightWithBorderPadding - descriptionHeight
+        val backgroundTop = descriptionHeight - descriptionTextHeight
 
         val verticalMargin = advancementsScreen.fullscreenVerticalMargin
         val windowBottom = advancementsScreen.fullscreenBackgroundHeight + AdvancementsScreen.WINDOW_INSIDE_Y +

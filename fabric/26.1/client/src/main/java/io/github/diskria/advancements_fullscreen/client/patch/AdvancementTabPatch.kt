@@ -15,49 +15,49 @@ abstract class AdvancementTabPatch : Lapis.Patch<AdvancementTab>() {
 
     @Hook(_AdvancementTab.scroll::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
-    fun overrideScrollXLimit(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundWidth
+    fun overrideScrollXLimit(): Int = advancementsScreen.fullscreenBackgroundWidth
 
     @Hook(_AdvancementTab.scroll::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
-    fun overrideScrollYLimit(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundHeight
+    fun overrideScrollYLimit(): Int = advancementsScreen.fullscreenBackgroundHeight
 
     @Hook(_AdvancementTab.canScrollHorizontally::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
-    fun overrideScrollXLimitCheck(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundWidth
+    fun overrideScrollXLimitCheck(): Int = advancementsScreen.fullscreenBackgroundWidth
 
     @Hook(_AdvancementTab.canScrollVertically::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
-    fun overrideScrollYLimitCheck(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundHeight
+    fun overrideScrollYLimitCheck(): Int = advancementsScreen.fullscreenBackgroundHeight
 
     @Hook(_AdvancementTab.drawTooltips::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0, 1])
-    fun overrideHoverOverlayWidth(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundWidth
+    fun overrideHoverOverlayWidth(): Int = advancementsScreen.fullscreenBackgroundWidth
 
     @Hook(_AdvancementTab.drawTooltips::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0, 1])
-    fun overrideHoverOverlayHeight(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundHeight
+    fun overrideHoverOverlayHeight(): Int = advancementsScreen.fullscreenBackgroundHeight
 
     @Hook(_AdvancementTab.drawContents::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
-    fun overrideBackgroundWidth(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundWidth
+    fun overrideBackgroundWidth(): Int = advancementsScreen.fullscreenBackgroundWidth
 
     @Hook(_AdvancementTab.drawContents::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
-    fun overrideBackgroundHeight(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundHeight
+    fun overrideBackgroundHeight(): Int = advancementsScreen.fullscreenBackgroundHeight
 
     @Hook(_AdvancementTab.drawContents::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH / 2, ordinal = [0])
-    fun overrideBackgroundX(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundWidth / 2
+    fun overrideBackgroundX(): Int = advancementsScreen.fullscreenBackgroundWidth / 2
 
     @Hook(_AdvancementTab.drawContents::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT / 2, ordinal = [0])
-    fun overrideBackgroundY(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundHeight / 2
+    fun overrideBackgroundY(): Int = advancementsScreen.fullscreenBackgroundHeight / 2
 
     @Hook(_AdvancementTab.drawContents::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.BACKGROUND_TILE_COUNT_X + 1, ordinal = [0])
-    fun overrideBackgroundColumns(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundWidth / 16 + 1
+    fun overrideBackgroundColumns(): Int = advancementsScreen.fullscreenBackgroundWidth / 16 + 1
 
     @Hook(_AdvancementTab.drawContents::class, Hook.At.Literal)
     @AtLiteral(int = AdvancementsScreen.BACKGROUND_TILE_COUNT_Y + 1, ordinal = [0])
-    fun overrideBackgroundRows(@Origin original: Int): Int = advancementsScreen.fullscreenBackgroundHeight / 16 + 1
+    fun overrideBackgroundRows(): Int = advancementsScreen.fullscreenBackgroundHeight / 16 + 1
 }
