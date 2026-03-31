@@ -79,8 +79,8 @@ object _AdvancementsScreen {
     @Method
     object mouseClicked : Lapis.Desc
     <AdvancementsScreen.(
-        mouseX: Int, mouseY: Int, button: Int
-    ) -> Unit>(AdvancementsScreen::mouseClicked)
+        mouseX: Double, mouseY: Double, button: Int
+    ) -> Boolean>(AdvancementsScreen::mouseClicked)
 
     @Method
     object renderWindow : Lapis.Desc
@@ -113,8 +113,8 @@ object _AdvancementTab {
     @Method
     object scroll : Lapis.Desc
     <class_3268.(
-        scrollX: Int, scrollY: Int,
-    ) -> Unit>(class_3268::method_14506)
+        scrollX: Double, scrollY: Double,
+    ) -> Unit>(class_3268::method_18643)
 
     @Method
     object drawTooltips : Lapis.Desc
