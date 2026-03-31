@@ -39,11 +39,11 @@ abstract class AdvancementsScreenPatch : Lapis.Patch<AdvancementsScreen>() {
         get() = AdvancementTabType.ABOVE.getY(0) + verticalTabHeight
 
     private fun updateFullscreenUI() {
-        fullscreenWindowWidth = instance.width - fullscreenHorizontalMargin * 2
-        fullscreenWindowHeight = instance.height - fullscreenVerticalMargin * 2
-
         fullscreenHorizontalMargin = horizontalTabWidth - horizontalTabOffset + SCREEN_MARGIN
         fullscreenVerticalMargin = verticalTabHeight - verticalTabOffset + SCREEN_MARGIN
+
+        fullscreenWindowWidth = instance.width - fullscreenHorizontalMargin * 2
+        fullscreenWindowHeight = instance.height - fullscreenVerticalMargin * 2
     }
 
     @Hook(_AdvancementsScreen.init::class, Hook.At.Body)
@@ -82,12 +82,12 @@ abstract class AdvancementsScreenPatch : Lapis.Patch<AdvancementsScreen>() {
 
     @Hook(_AdvancementsScreen.init::class, Hook.At.Call)
     @AtCall(_HeaderAndFooterLayout.addTitleHeader::class, ordinal = [0])
-    fun hideTitleHeader(@Origin original: Lapis.Call<_HeaderAndFooterLayout.addTitleHeader>) {
+    fun hideTitleHeader() {
     }
 
     @Hook(_AdvancementsScreen.init::class, Hook.At.Call)
     @AtCall(_HeaderAndFooterLayout.addToFooter::class, ordinal = [0])
-    fun hideFooter(@Origin original: Lapis.Call<_HeaderAndFooterLayout.addToFooter>): LayoutElement? = null
+    fun hideFooter(): LayoutElement? = null
 
     @Hook(_AdvancementsScreen.init::class, Hook.At.Call)
     @AtCall(_HeaderAndFooterLayout.visitWidgets::class, ordinal = [0])
