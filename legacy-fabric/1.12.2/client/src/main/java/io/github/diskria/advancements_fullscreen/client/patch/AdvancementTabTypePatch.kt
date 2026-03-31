@@ -27,9 +27,7 @@ abstract class AdvancementTabTypePatch : Lapis.Patch<class_3269>() {
 
     @Hook(_AdvancementTabType.draw::class, Hook.At.Call)
     @AtCall(_DrawableHelper.drawTexture::class, ordinal = [0])
-    fun fixSpriteAlignment(
-        @Origin original: Lapis.Call<_DrawableHelper.drawTexture>,
-    ) {
+    fun fixSpriteAlignment(@Origin original: Lapis.Call<_DrawableHelper.drawTexture>) {
         original(u = advancementsScreen?.let {
             val isVertical = instance == class_3269.ABOVE || instance == class_3269.BELOW
 

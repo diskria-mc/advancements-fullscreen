@@ -82,7 +82,7 @@ abstract class AdvancementsScreenPatch : Lapis.Patch<AdvancementsScreen>() {
     fun overrideEmptyBackgroundHeight(): Int = fullscreenBackgroundHeight
 
     @Hook(_AdvancementsScreen.renderInside::class, Hook.At.Literal)
-    @AtLiteral(int = _AdvancementsScreen.WINDOW_INSIDE_WIDTH / 2, ordinal = [0])
+    @AtLiteral(int = _AdvancementsScreen.WINDOW_INSIDE_WIDTH / 2, ordinal = [0, 1])
     fun overrideEmptyLabelsX(): Int = fullscreenBackgroundWidth / 2
 
     @Hook(_AdvancementsScreen.renderInside::class, Hook.At.Literal)

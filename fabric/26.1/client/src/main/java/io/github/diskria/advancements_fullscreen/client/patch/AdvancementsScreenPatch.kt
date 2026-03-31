@@ -75,7 +75,7 @@ abstract class AdvancementsScreenPatch : Lapis.Patch<AdvancementsScreen>() {
         FullscreenRenderer.render(
             original.getReceiver(),
             original.renderPipeline,
-            fullscreenHorizontalMargin, fullscreenVerticalMargin,
+            original.x, original.y,
             fullscreenWindowWidth, fullscreenWindowHeight,
         )
     }
