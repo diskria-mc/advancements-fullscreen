@@ -1,7 +1,6 @@
 package io.github.diskria.advancements_fullscreen.client.patch
 
 import io.github.diskria.advancements_fullscreen.client._AdvancementWidget
-import io.github.diskria.advancements_fullscreen.generated.Lapis
 import io.github.diskria.advancements_fullscreen.generated.fullscreenBackgroundHeight
 import io.github.diskria.advancements_fullscreen.generated.fullscreenVerticalMargin
 import io.github.recrafter.lapis.annotations.*
@@ -10,18 +9,23 @@ import net.minecraft.client.gui.screens.advancements.AdvancementWidget
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
 @Patch(_AdvancementWidget::class, Side.ClientOnly)
-abstract class AdvancementWidgetPatch : Lapis.Patch<AdvancementWidget>() {
+abstract class AdvancementWidgetPatch(@Origin val widget: AdvancementWidget) {
 
-    private val advancementsScreen: AdvancementsScreen get() = instance.tab.screen
+    private val advancementsScreen: AdvancementsScreen get() = widget.tab.screen
 
-    @Hook(_AdvancementWidget.drawHover::class, Hook.At.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
+    @Hook(_AdvancementWidget.extractHover::class, At.Local)
+    @AtLocal(
+        op = Op.Set,
+        type = Boolean::class,
+        local = Local("topSide"),
+        ordinal = [0]
+    )
     fun fixHoverOutOfScreen(
-        @Local(1) titleTop: Int,
-        @Local(2) titleBarBottom: Int,
-        @Local(3) descriptionTextHeight: Int,
-        @Local(4) descriptionHeight: Int,
-    ): Int {
+        @Local titleTop: Int,
+        @Local titleBarBottom: Int,
+        @Local descriptionTextHeight: Int,
+        @Local descriptionHeight: Int,
+    ): Boolean {
         val hoverBottom = titleBarBottom + descriptionHeight
         val hoverTop = titleTop - descriptionTextHeight + 1
 
@@ -33,7 +37,7 @@ abstract class AdvancementWidgetPatch : Lapis.Patch<AdvancementWidget>() {
             verticalMargin
         val windowTop = -AdvancementsScreen.WINDOW_INSIDE_X - verticalMargin
 
-        val useTopMode = when {
+        return when {
             hoverBottom < backgroundBottom -> false
             hoverTop >= backgroundTop -> true
 
@@ -42,6 +46,5 @@ abstract class AdvancementWidgetPatch : Lapis.Patch<AdvancementWidget>() {
 
             else -> Minecraft.getInstance().hasAltDown()
         }
-        return if (useTopMode) Int.MIN_VALUE else Int.MAX_VALUE
     }
 }

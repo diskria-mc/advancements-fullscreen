@@ -1,265 +1,180 @@
 package io.github.diskria.advancements_fullscreen.client
 
+import com.mojang.authlib.GameProfile
 import com.mojang.blaze3d.pipeline.RenderPipeline
 import io.github.diskria.advancements_fullscreen.generated.Lapis
-import io.github.recrafter.lapis.annotations.*
+import io.github.recrafter.lapis.annotations.Access
+import io.github.recrafter.lapis.annotations.Schema
+import io.github.recrafter.lapis.annotations.Static
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
-import net.minecraft.client.gui.layouts.HeaderAndFooterLayout
 import net.minecraft.client.gui.layouts.LayoutElement
 import net.minecraft.client.gui.screens.advancements.AdvancementTab
-import net.minecraft.client.gui.screens.advancements.AdvancementTabType
-import net.minecraft.client.gui.screens.advancements.AdvancementWidget
-import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.client.renderer.texture.SpriteContents
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.resources.metadata.gui.GuiSpriteScaling
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.level.Level
 import java.util.function.Consumer
 
-@Schema(AdvancementWidget::class)
+@Schema("net.minecraft.client.gui.screens.advancements.AdvancementWidget")
 object _AdvancementWidget {
 
-    @Access
-    @Field
-    object tab : Lapis.Desc<AdvancementWidget.() -> AdvancementTab>
-        (AdvancementWidget::tab)
+    @Access object tab : Lapis.Field<AdvancementTab>
 
-    @Method
-    object drawHover : Lapis.Desc
-    <AdvancementWidget.(
+    object extractHover : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         scrollX: Int, scrollY: Int,
         fade: Float,
         x: Int, y: Int,
-    ) -> Unit>(AdvancementWidget::extractHover)
+    ) -> Unit>
 }
 
-@Schema(AdvancementsScreen::class)
+@Schema("net.minecraft.client.gui.screens.advancements.AdvancementsScreen")
 object _AdvancementsScreen {
 
-    @Access
-    @Static @Field
-    object WINDOW_LOCATION : Lapis.Desc<() -> Identifier>
-        (AdvancementsScreen::WINDOW_LOCATION)
+    @Access @Static object WINDOW_LOCATION : Lapis.Field<Identifier>
+    @Access @Static object WINDOW_INSIDE_X : Lapis.Field<Int>
+    @Access @Static object WINDOW_INSIDE_Y : Lapis.Field<Int>
+    @Access @Static object BACKGROUND_TEXTURE_WIDTH : Lapis.Field<Int>
+    @Access @Static object BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
+    @Access object tabs : Lapis.Field<Map<AdvancementHolder, AdvancementTab>>
+    @Access object selectedTab : Lapis.Field<AdvancementTab?>
+    object width : Lapis.Field<Int>
 
-    @Access
-    @Static @Field
-    object WINDOW_INSIDE_X : Lapis.Desc<() -> Int>
-        (AdvancementsScreen::WINDOW_INSIDE_X)
+    @Access object init : Lapis.Method<() -> Unit>
 
-    @Access
-    @Static @Field
-    object WINDOW_INSIDE_Y : Lapis.Desc<() -> Int>
-        (AdvancementsScreen::WINDOW_INSIDE_Y)
-
-    @Access
-    @Static @Field
-    object BACKGROUND_TEXTURE_WIDTH : Lapis.Desc<() -> Int>
-        (AdvancementsScreen::BACKGROUND_TEXTURE_WIDTH)
-
-    @Access
-    @Static @Field
-    object BACKGROUND_TEXTURE_HEIGHT : Lapis.Desc<() -> Int>
-        (AdvancementsScreen::BACKGROUND_TEXTURE_HEIGHT)
-
-    @Access
-    @Field
-    object tabs : Lapis.Desc<AdvancementsScreen.() -> Map<AdvancementHolder, AdvancementTab>>
-        (AdvancementsScreen::tabs)
-
-    @Access
-    @Field
-    object selectedTab : Lapis.Desc<AdvancementsScreen.() -> AdvancementTab?>
-        (AdvancementsScreen::selectedTab)
-
-    @Access
-    @Method
-    object init : Lapis.Desc
-    <AdvancementsScreen.() -> Unit>
-        (AdvancementsScreen::init)
-
-    @Method
-    object render : Lapis.Desc
-    <AdvancementsScreen.(
+    object extractRenderState : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         x: Int, y: Int,
         color: Float,
-    ) -> Unit>(AdvancementsScreen::extractRenderState)
+    ) -> Unit>
 
-    @Access
-    @Method
-    object renderInside : Lapis.Desc
-    <AdvancementsScreen.(
+    @Access object extractInside : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         x: Int, y: Int,
-    ) -> Unit>(AdvancementsScreen::extractInside)
+    ) -> Unit>
 
-    @Method
-    object mouseClicked : Lapis.Desc
-    <AdvancementsScreen.(
-        mouseButtonEvent: MouseButtonEvent,
-        isDouble: Boolean,
-    ) -> Boolean>(AdvancementsScreen::mouseClicked)
+    object mouseClicked : Lapis.Method<(mouseButtonEvent: MouseButtonEvent, isDouble: Boolean) -> Boolean>
 
-    @Method
-    object mouseScrolled : Lapis.Desc
-    <AdvancementsScreen.(
+    object mouseScrolled : Lapis.Method<(
         x: Double, y: Double,
         dx: Double, dy: Double,
-    ) -> Boolean>(AdvancementsScreen::mouseScrolled)
+    ) -> Boolean>
 
-    @Access
-    @Method
-    object repositionElements : Lapis.Desc
-    <AdvancementsScreen.() -> Unit>(AdvancementsScreen::repositionElements)
+    @Access object repositionElements : Lapis.Method<() -> Unit>
 
-    @Method
-    object renderWindow : Lapis.Desc
-    <AdvancementsScreen.(
+    object extractWindow : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         windowX: Int, windowY: Int,
         screenX: Int, screenY: Int,
-    ) -> Unit>(AdvancementsScreen::extractWindow)
+    ) -> Unit>
 }
 
-@Schema(AdvancementTab::class)
+@Schema("net.minecraft.client.gui.screens.advancements.AdvancementTab")
 object _AdvancementTab {
 
-    @Access
-    @Field
-    object centered : Lapis.Desc<AdvancementTab.() -> Boolean>
-        (AdvancementTab::centered)
+    @Access object fade : Lapis.Field<Float>
+    @Access object centered : Lapis.Field<Boolean>
 
-    @Method
-    object scroll : Lapis.Desc
-    <AdvancementTab.(
-        scrollX: Double, scrollY: Double,
-    ) -> Unit>(AdvancementTab::scroll)
+    object scroll : Lapis.Method<(scrollX: Double, scrollY: Double) -> Unit>
+    object isMouseOver : Lapis.Method<(Int, Int, scrollX: Double, scrollY: Double) -> Boolean>
+    object canScrollHorizontally : Lapis.Method<() -> Boolean>
+    object canScrollVertically : Lapis.Method<() -> Boolean>
 
-    @Method
-    object canScrollHorizontally : Lapis.Desc
-    <AdvancementTab.() -> Boolean>(AdvancementTab::canScrollHorizontally)
-
-    @Method
-    object canScrollVertically : Lapis.Desc
-    <AdvancementTab.() -> Boolean>(AdvancementTab::canScrollVertically)
-
-    @Method
-    object drawTooltips : Lapis.Desc
-    <AdvancementTab.(
+    object extractTooltips : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         windowX: Int, windowY: Int,
         x: Int, y: Int,
-    ) -> Unit>(AdvancementTab::extractTooltips)
+    ) -> Unit>
 
-    @Method
-    object drawContents : Lapis.Desc
-    <AdvancementTab.(
+    object extractContents : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         x: Int, y: Int,
-    ) -> Unit>(AdvancementTab::extractContents)
+    ) -> Unit>
 }
 
-@Schema(
-    access = "net.minecraft.client.gui.screens.advancements.AdvancementTabType",
-    target = AdvancementTabType::class
-)
+@Access
+@Schema("net.minecraft.client.gui.screens.advancements.AdvancementTabType")
 object _AdvancementTabType {
 
-    @Method
-    object draw : Lapis.Desc
-    <AdvancementTabType.(
+    object extractRenderState : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         x: Int, y: Int,
         isSelected: Boolean,
         index: Int,
-    ) -> Unit>(AdvancementTabType::extractRenderState)
+    ) -> Unit>
 
-    @Method
-    object getX : Lapis.Desc
-    <AdvancementTabType.(index: Int) -> Int>(AdvancementTabType::getX)
+    object getX : Lapis.Method<(index: Int) -> Int>
+    object getY : Lapis.Method<(index: Int) -> Int>
 
-    @Method
-    object getY : Lapis.Desc
-    <AdvancementTabType.(index: Int) -> Int>(AdvancementTabType::getY)
-
-    @Schema(access = ".Sprites")
-    object Sprites_
+    @Access
+    @Schema("Sprites")
+    object _Sprites
 }
 
-@Schema(GuiGraphicsExtractor::class)
+@Schema("net.minecraft.client.gui.GuiGraphicsExtractor")
 object _GuiGraphics {
 
     @Access
-    @Method
-    object blitNineSlicedSprite : Lapis.Desc
-    <GuiGraphicsExtractor.(
+    object blitNineSlicedSprite : Lapis.Method<(
         renderPipeline: RenderPipeline,
         textureAtlasSprite: TextureAtlasSprite,
         nineSlice: GuiSpriteScaling.NineSlice,
         x: Int, y: Int,
         width: Int, height: Int,
         color: Int,
-    ) -> Unit>(GuiGraphicsExtractor::blitNineSlicedSprite)
+    ) -> Unit>
 
-    @Method
-    object blit : Lapis.Desc
-    <GuiGraphicsExtractor.(
+    object blit : Lapis.Method<(
         renderPipeline: RenderPipeline,
-        identifier: Identifier,
+        Identifier,
         x: Int, y: Int,
-        u: Float, v: Float,
-        width: Int, height: Int,
-        textureWidth: Int, textureHeight: Int,
-    ) -> Unit>(GuiGraphicsExtractor::blit)
+        Float, Float,
+        Int, Int,
+        Int, Int,
+    ) -> Unit>
 
-    @Method
-    object blitSprite : Lapis.Desc
-    <GuiGraphicsExtractor.(
+    object blitSprite : Lapis.Method<(
         renderPipeline: RenderPipeline,
         sprite: Identifier,
         x: Int, y: Int,
         width: Int, height: Int,
-    ) -> Unit>(GuiGraphicsExtractor::blitSprite)
+    ) -> Unit>
 }
 
-@Schema(HeaderAndFooterLayout::class)
+@Schema("net.minecraft.client.gui.layouts.HeaderAndFooterLayout")
 object _HeaderAndFooterLayout {
-
-    @Method
-    object addTitleHeader : Lapis.Desc
-    <HeaderAndFooterLayout.(
-        component: Component, font: Font
-    ) -> Unit>(HeaderAndFooterLayout::addTitleHeader)
-
-    @Method
-    object addToFooter : Lapis.Desc
-    <HeaderAndFooterLayout.(
-        element: LayoutElement
-    ) -> LayoutElement>(HeaderAndFooterLayout::addToFooter)
-
-    @Method
-    object visitWidgets : Lapis.Desc
-    <HeaderAndFooterLayout.(
-        consumer: Consumer<AbstractWidget>
-    ) -> Unit>(HeaderAndFooterLayout::visitWidgets)
+    object addTitleHeader : Lapis.Method<(component: Component, font: Font) -> Unit>
+    object addToFooter : Lapis.Method<(element: LayoutElement) -> LayoutElement>
+    object visitWidgets : Lapis.Method<(consumer: Consumer<AbstractWidget>) -> Unit>
 }
 
-@Schema(TextureAtlasSprite::class)
+@Schema("net.minecraft.client.renderer.texture.TextureAtlasSprite")
 object _TextureAtlasSprite {
 
-    @Access
-    @Constructor
-    object newInstance : Lapis.Desc<(
+    @Access object newInstance : Lapis.Constructor<(
         identifier: Identifier,
         contents: SpriteContents,
         atlasWidth: Int, atlasHeight: Int,
         x: Int, y: Int,
         padding: Int,
-    ) -> TextureAtlasSprite>(::TextureAtlasSprite)
+    ) -> Unit>
+}
+
+@Schema("net.minecraft.world.entity.player.Player")
+object _Player {
+    object crit : Lapis.Method<(Entity) -> Unit>
+    object noPhysics : Lapis.Field<Boolean>
+    object newInstance : Lapis.Constructor<(Level, GameProfile) -> Unit>
+}
+
+@Schema("net.minecraft.world.phys.Vec3")
+object _Vec3 {
+    object newInstance : Lapis.Constructor<(Double, Double, Double) -> Unit>
 }
