@@ -15,28 +15,43 @@ import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 @Patch(_AdvancementsScreen::class, Side.ClientOnly)
 abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
+    @Extension
     var fullscreenWindowWidth: Int = 0
-    var fullscreenWindowHeight: Int = 0
-    var fullscreenHorizontalMargin: Int = 0
-    var fullscreenVerticalMargin: Int = 0
+        private set
 
+    @Extension
+    var fullscreenWindowHeight: Int = 0
+        private set
+
+    @Extension
+    var fullscreenHorizontalMargin: Int = 0
+        private set
+
+    @Extension
+    var fullscreenVerticalMargin: Int = 0
+        private set
+
+    @Extension
     val fullscreenBackgroundWidth: Int
         get() = fullscreenWindowWidth - (AdvancementsScreen.WINDOW_INSIDE_X * 2)
 
+    @Extension
     val fullscreenBackgroundHeight: Int
         get() = fullscreenWindowHeight - (AdvancementsScreen.WINDOW_INSIDE_Y + AdvancementsScreen.WINDOW_INSIDE_X)
 
-    val horizontalTabWidth: Int
-        get() = AdvancementTabType.LEFT.width
-
-    val verticalTabHeight: Int
-        get() = AdvancementTabType.ABOVE.height
-
+    @Extension
     val horizontalTabOffset: Int
         get() = AdvancementTabType.LEFT.getX(0) + horizontalTabWidth
 
+    @Extension
     val verticalTabOffset: Int
         get() = AdvancementTabType.ABOVE.getY(0) + verticalTabHeight
+
+    private val horizontalTabWidth: Int
+        get() = AdvancementTabType.LEFT.width
+
+    private val verticalTabHeight: Int
+        get() = AdvancementTabType.ABOVE.height
 
     private fun updateFullscreenUI() {
         fullscreenHorizontalMargin = horizontalTabWidth - horizontalTabOffset + SCREEN_MARGIN

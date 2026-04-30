@@ -20,7 +20,7 @@ import java.util.function.Consumer
 @Schema("net.minecraft.client.gui.screens.advancements.AdvancementWidget")
 interface _AdvancementWidget {
 
-    @Access interface tab : Lapis.Field<AdvancementTab>
+    @Access() interface tab : Lapis.Field<AdvancementTab>
 
     interface extractHover : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
@@ -38,11 +38,11 @@ interface _AdvancementsScreen {
     @Access @Static interface WINDOW_INSIDE_Y : Lapis.Field<Int>
     @Access @Static interface BACKGROUND_TEXTURE_WIDTH : Lapis.Field<Int>
     @Access @Static interface BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
-    @Access interface tabs : Lapis.Field<Map<AdvancementHolder, AdvancementTab>>
-    @Access interface selectedTab : Lapis.Field<AdvancementTab?>
+    @Access() interface tabs : Lapis.Field<Map<AdvancementHolder, AdvancementTab>>
+    interface selectedTab : Lapis.Field<AdvancementTab?>
     interface width : Lapis.Field<Int>
 
-    @Access interface init : Lapis.Method<() -> Unit>
+    interface init : Lapis.Method<() -> Unit>
 
     interface extractRenderState : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
@@ -50,7 +50,7 @@ interface _AdvancementsScreen {
         color: Float,
     ) -> Unit>
 
-    @Access interface extractInside : Lapis.Method<(
+    interface extractInside : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
         x: Int, y: Int,
     ) -> Unit>
@@ -62,7 +62,7 @@ interface _AdvancementsScreen {
         dx: Double, dy: Double,
     ) -> Boolean>
 
-    @BytecodeName("repositionElements")
+    @MappingName("repositionElements")
     interface updateUI : Lapis.Method<() -> Unit>
 
     interface extractWindow : Lapis.Method<(
@@ -75,8 +75,8 @@ interface _AdvancementsScreen {
 @Schema("net.minecraft.client.gui.screens.advancements.AdvancementTab")
 interface _AdvancementTab {
 
-    @Access interface fade : Lapis.Field<Float>
-    @Access interface centered : Lapis.Field<Boolean>
+    interface fade : Lapis.Field<Float>
+    @Access() interface centered : Lapis.Field<Boolean>
 
     interface scroll : Lapis.Method<(scrollX: Double, scrollY: Double) -> Unit>
     interface isMouseOver : Lapis.Method<(Int, Int, scrollX: Double, scrollY: Double) -> Boolean>
@@ -117,8 +117,7 @@ interface _AdvancementTabType {
 @Schema("net.minecraft.client.gui.GuiGraphicsExtractor")
 interface _GuiGraphics {
 
-    @Access
-    interface blitNineSlicedSprite : Lapis.Method<(
+    @Access interface blitNineSlicedSprite : Lapis.Method<(
         renderPipeline: RenderPipeline,
         textureAtlasSprite: TextureAtlasSprite,
         nineSlice: GuiSpriteScaling.NineSlice,
