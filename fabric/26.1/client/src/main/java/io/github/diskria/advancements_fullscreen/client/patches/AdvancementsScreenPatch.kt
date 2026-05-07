@@ -65,8 +65,8 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
         updateFullscreenUI()
     }
 
-    @Hook(_AdvancementsScreen.updateUI::class, At.Body)
-    fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.updateUI>) {
+    @Hook(_AdvancementsScreen.repositionElements::class, At.Body)
+    fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.repositionElements>) {
         original()
         screen.tabs.values.forEach { it.centered = false }
         updateFullscreenUI()

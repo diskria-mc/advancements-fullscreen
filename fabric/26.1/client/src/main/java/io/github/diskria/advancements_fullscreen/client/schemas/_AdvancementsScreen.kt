@@ -11,23 +11,23 @@ import net.minecraft.resources.Identifier
 @Schema("net.minecraft.client.gui.screens.advancements.AdvancementsScreen", side = Side.ClientOnly)
 object _AdvancementsScreen {
 
-    @Access(unfinal = true)
+    @Access(field = [Op.Get])
     @Static
     object WINDOW_LOCATION : Lapis.Field<Identifier>
 
-    @Access(unfinal = true)
+    @Access(field = [Op.Get])
     @Static
     object WINDOW_INSIDE_X : Lapis.Field<Int>
 
-    @Access(unfinal = true)
+    @Access(field = [Op.Get])
     @Static
     object WINDOW_INSIDE_Y : Lapis.Field<Int>
 
-    @Access(unfinal = true)
+    @Access(field = [Op.Get])
     @Static
     object BACKGROUND_TEXTURE_WIDTH : Lapis.Field<Int>
 
-    @Access(field = [Op.Get, Op.Set])
+    @Access(field = [Op.Get])
     @Static object BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
 
     @Access(field = [Op.Get])
@@ -56,8 +56,7 @@ object _AdvancementsScreen {
         dx: Double, dy: Double,
     ) -> Boolean>
 
-    @MappingName("repositionElements")
-    object updateUI : Lapis.Method<() -> Unit>
+    object repositionElements : Lapis.Method<() -> Unit>
 
     object extractWindow : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
