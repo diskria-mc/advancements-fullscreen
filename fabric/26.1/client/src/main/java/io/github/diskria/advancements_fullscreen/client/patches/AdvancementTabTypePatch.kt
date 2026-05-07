@@ -1,14 +1,13 @@
-package io.github.diskria.advancements_fullscreen.client.patch
+package io.github.diskria.advancements_fullscreen.client.patches
 
-import io.github.diskria.advancements_fullscreen.client._AdvancementTabType
-import io.github.diskria.advancements_fullscreen.client._GuiGraphics
-import io.github.diskria.advancements_fullscreen.generated.*
+import io.github.diskria.advancements_fullscreen.client.schemas.*
+import io.github.diskria.advancements_fullscreen.generated.Lapis
 import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.advancements.AdvancementTabType
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
-@Patch(_AdvancementTabType::class, Side.ClientOnly)
+@Patch(_AdvancementTabType::class, side = Side.ClientOnly)
 abstract class AdvancementTabTypePatch(@Origin val type: AdvancementTabType) {
 
     private val advancementsScreen: AdvancementsScreen? get() = Minecraft.getInstance().screen as? AdvancementsScreen

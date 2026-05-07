@@ -1,14 +1,15 @@
-package io.github.diskria.advancements_fullscreen.client.patch
+package io.github.diskria.advancements_fullscreen.client.patches
 
-import io.github.diskria.advancements_fullscreen.client._AdvancementWidget
-import io.github.diskria.advancements_fullscreen.generated.fullscreenBackgroundHeight
-import io.github.diskria.advancements_fullscreen.generated.fullscreenVerticalMargin
+import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementWidget
+import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementsScreen
+import io.github.diskria.advancements_fullscreen.client.schemas.tab
+import io.github.diskria.advancements_fullscreen.client.schemas.value
 import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.advancements.AdvancementWidget
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
-@Patch(_AdvancementWidget::class, Side.ClientOnly)
+@Patch(_AdvancementWidget::class, side = Side.ClientOnly)
 abstract class AdvancementWidgetPatch(@Origin val widget: AdvancementWidget) {
 
     private val advancementsScreen: AdvancementsScreen get() = widget.tab.screen
@@ -33,9 +34,9 @@ abstract class AdvancementWidgetPatch(@Origin val widget: AdvancementWidget) {
         val backgroundTop = descriptionHeight - descriptionTextHeight
 
         val verticalMargin = advancementsScreen.fullscreenVerticalMargin
-        val windowBottom = advancementsScreen.fullscreenBackgroundHeight + AdvancementsScreen.WINDOW_INSIDE_Y +
+        val windowBottom = advancementsScreen.fullscreenBackgroundHeight + _AdvancementsScreen.WINDOW_INSIDE_Y.value +
             verticalMargin
-        val windowTop = -AdvancementsScreen.WINDOW_INSIDE_X - verticalMargin
+        val windowTop = _AdvancementsScreen.WINDOW_INSIDE_X.value.unaryMinus() - verticalMargin
 
         return when {
             hoverBottom < backgroundBottom -> false

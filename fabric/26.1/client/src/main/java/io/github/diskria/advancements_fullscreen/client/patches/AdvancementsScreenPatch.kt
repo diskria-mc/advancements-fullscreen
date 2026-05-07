@@ -1,18 +1,15 @@
-package io.github.diskria.advancements_fullscreen.client.patch
+package io.github.diskria.advancements_fullscreen.client.patches
 
-import io.github.diskria.advancements_fullscreen.client._AdvancementTab
-import io.github.diskria.advancements_fullscreen.client._AdvancementsScreen
-import io.github.diskria.advancements_fullscreen.client._GuiGraphics
-import io.github.diskria.advancements_fullscreen.client._HeaderAndFooterLayout
 import io.github.diskria.advancements_fullscreen.client.gui.FullscreenRenderer
-import io.github.diskria.advancements_fullscreen.generated.*
+import io.github.diskria.advancements_fullscreen.client.schemas.*
+import io.github.diskria.advancements_fullscreen.generated.Lapis
 import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.layouts.LayoutElement
 import net.minecraft.client.gui.screens.advancements.AdvancementTabType
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
-@Patch(_AdvancementsScreen::class, Side.ClientOnly)
+@Patch(_AdvancementsScreen::class, side = Side.ClientOnly)
 abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
     @Extension
@@ -33,11 +30,12 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
     @Extension
     val fullscreenBackgroundWidth: Int
-        get() = fullscreenWindowWidth - (AdvancementsScreen.WINDOW_INSIDE_X * 2)
+        get() = fullscreenWindowWidth - (_AdvancementsScreen.WINDOW_INSIDE_X.value * 2)
 
     @Extension
     val fullscreenBackgroundHeight: Int
-        get() = fullscreenWindowHeight - (AdvancementsScreen.WINDOW_INSIDE_Y + AdvancementsScreen.WINDOW_INSIDE_X)
+        get() = fullscreenWindowHeight -
+            (_AdvancementsScreen.WINDOW_INSIDE_Y.value + _AdvancementsScreen.WINDOW_INSIDE_X.value)
 
     @Extension
     val horizontalTabOffset: Int

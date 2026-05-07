@@ -1,0 +1,67 @@
+package io.github.diskria.advancements_fullscreen.client.schemas
+
+import io.github.diskria.advancements_fullscreen.generated.Lapis
+import io.github.recrafter.lapis.annotations.*
+import net.minecraft.advancements.AdvancementHolder
+import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.gui.screens.advancements.AdvancementTab
+import net.minecraft.client.input.MouseButtonEvent
+import net.minecraft.resources.Identifier
+
+@Schema("net.minecraft.client.gui.screens.advancements.AdvancementsScreen", side = Side.ClientOnly)
+object _AdvancementsScreen {
+
+    @Access(unfinal = true)
+    @Static
+    object WINDOW_LOCATION : Lapis.Field<Identifier>
+
+    @Access(unfinal = true)
+    @Static
+    object WINDOW_INSIDE_X : Lapis.Field<Int>
+
+    @Access(unfinal = true)
+    @Static
+    object WINDOW_INSIDE_Y : Lapis.Field<Int>
+
+    @Access(unfinal = true)
+    @Static
+    object BACKGROUND_TEXTURE_WIDTH : Lapis.Field<Int>
+
+    @Access(field = [Op.Get, Op.Set])
+    @Static object BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
+
+    @Access(field = [Op.Get])
+    object tabs : Lapis.Field<Map<AdvancementHolder, AdvancementTab>>
+
+    object selectedTab : Lapis.Field<AdvancementTab?>
+    object width : Lapis.Field<Int>
+
+    object init : Lapis.Method<() -> Unit>
+
+    object extractRenderState : Lapis.Method<(
+        graphics: GuiGraphicsExtractor,
+        x: Int, y: Int,
+        color: Float,
+    ) -> Unit>
+
+    object extractInside : Lapis.Method<(
+        graphics: GuiGraphicsExtractor,
+        x: Int, y: Int,
+    ) -> Unit>
+
+    object mouseClicked : Lapis.Method<(mouseButtonEvent: MouseButtonEvent, isDouble: Boolean) -> Boolean>
+
+    object mouseScrolled : Lapis.Method<(
+        x: Double, y: Double,
+        dx: Double, dy: Double,
+    ) -> Boolean>
+
+    @MappingName("repositionElements")
+    object updateUI : Lapis.Method<() -> Unit>
+
+    object extractWindow : Lapis.Method<(
+        graphics: GuiGraphicsExtractor,
+        windowX: Int, windowY: Int,
+        screenX: Int, screenY: Int,
+    ) -> Unit>
+}
