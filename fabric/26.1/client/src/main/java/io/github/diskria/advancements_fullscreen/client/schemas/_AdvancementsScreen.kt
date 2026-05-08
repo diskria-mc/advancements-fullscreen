@@ -2,9 +2,7 @@ package io.github.diskria.advancements_fullscreen.client.schemas
 
 import io.github.diskria.advancements_fullscreen.generated.Lapis
 import io.github.recrafter.lapis.annotations.*
-import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.client.gui.GuiGraphicsExtractor
-import net.minecraft.client.gui.screens.advancements.AdvancementTab
 import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.resources.Identifier
 
@@ -30,10 +28,6 @@ object _AdvancementsScreen {
     @Access(field = [Op.Get])
     @Static object BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
 
-    @Access(field = [Op.Get])
-    object tabs : Lapis.Field<Map<AdvancementHolder, AdvancementTab>>
-
-    object selectedTab : Lapis.Field<AdvancementTab?>
     object width : Lapis.Field<Int>
 
     object init : Lapis.Method<() -> Unit>

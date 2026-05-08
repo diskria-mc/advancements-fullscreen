@@ -4,13 +4,18 @@ import io.github.diskria.advancements_fullscreen.client.gui.FullscreenRenderer
 import io.github.diskria.advancements_fullscreen.client.schemas.*
 import io.github.diskria.advancements_fullscreen.generated.Lapis
 import io.github.recrafter.lapis.annotations.*
+import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.layouts.LayoutElement
+import net.minecraft.client.gui.screens.advancements.AdvancementTab
 import net.minecraft.client.gui.screens.advancements.AdvancementTabType
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
 @Patch(_AdvancementsScreen::class, side = Side.ClientOnly)
 abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
+
+    @Shadow(final = true)
+    abstract val tabs: Map<AdvancementHolder, AdvancementTab>
 
     @Extension
     var fullscreenWindowWidth: Int = 0
@@ -68,7 +73,7 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     @Hook(_AdvancementsScreen.repositionElements::class, At.Body)
     fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.repositionElements>) {
         original()
-        screen.tabs.values.forEach { it.centered = false }
+        tabs.values.forEach { it.centered = false }
         updateFullscreenUI()
     }
 

@@ -2,17 +2,19 @@ package io.github.diskria.advancements_fullscreen.client.patches
 
 import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementWidget
 import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementsScreen
-import io.github.diskria.advancements_fullscreen.client.schemas.tab
 import io.github.diskria.advancements_fullscreen.client.schemas.value
 import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.screens.advancements.AdvancementWidget
+import net.minecraft.client.gui.screens.advancements.AdvancementTab
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
 @Patch(_AdvancementWidget::class, side = Side.ClientOnly)
-abstract class AdvancementWidgetPatch(@Origin val widget: AdvancementWidget) {
+abstract class AdvancementWidgetPatch {
 
-    private val advancementsScreen: AdvancementsScreen get() = widget.tab.screen
+    private val advancementsScreen: AdvancementsScreen get() = tab.screen
+
+    @Shadow
+    abstract val tab: AdvancementTab
 
     @Hook(_AdvancementWidget.extractHover::class, At.Local)
     @AtLocal(

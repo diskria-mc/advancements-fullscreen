@@ -2,13 +2,15 @@ package io.github.diskria.advancements_fullscreen.client.patches
 
 import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementTab
 import io.github.recrafter.lapis.annotations.*
-import net.minecraft.client.gui.screens.advancements.AdvancementTab
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
 @Patch(_AdvancementTab::class, side = Side.ClientOnly)
-abstract class AdvancementTabPatch(@Origin val tab: AdvancementTab) {
+abstract class AdvancementTabPatch {
 
-    private val advancementsScreen: AdvancementsScreen get() = tab.screen
+    private val advancementsScreen: AdvancementsScreen get() = getScreen()
+
+    @Shadow
+    abstract fun getScreen(): AdvancementsScreen
 
     @Hook(_AdvancementTab.scroll::class, At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
