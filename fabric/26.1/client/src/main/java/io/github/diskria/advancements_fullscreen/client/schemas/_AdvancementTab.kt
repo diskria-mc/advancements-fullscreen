@@ -10,7 +10,8 @@ import net.minecraft.client.gui.GuiGraphicsExtractor
 @Schema("net.minecraft.client.gui.screens.advancements.AdvancementTab", side = Side.ClientOnly)
 object _AdvancementTab {
 
-    @Access(field = [Op.Set]) object centered : Lapis.Field<Boolean>
+    @Access(field = [Op.Set])
+    object centered : Lapis.Field<Boolean>
 
     object scroll : Lapis.Method<(scrollX: Double, scrollY: Double) -> Unit>
     object canScrollHorizontally : Lapis.Method<() -> Boolean>

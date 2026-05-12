@@ -26,7 +26,8 @@ object _AdvancementsScreen {
     object BACKGROUND_TEXTURE_WIDTH : Lapis.Field<Int>
 
     @Access(field = [Op.Get])
-    @Static object BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
+    @Static
+    object BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
 
     object width : Lapis.Field<Int>
 
@@ -43,7 +44,9 @@ object _AdvancementsScreen {
         x: Int, y: Int,
     ) -> Unit>
 
-    object mouseClicked : Lapis.Method<(mouseButtonEvent: MouseButtonEvent, isDouble: Boolean) -> Boolean>
+    object mouseClicked : Lapis.Method<(
+        mouseButtonEvent: MouseButtonEvent, isDouble: Boolean
+    ) -> Boolean>
 
     object mouseScrolled : Lapis.Method<(
         x: Double, y: Double,

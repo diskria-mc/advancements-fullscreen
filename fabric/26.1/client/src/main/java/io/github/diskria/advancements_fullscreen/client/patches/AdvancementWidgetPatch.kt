@@ -7,13 +7,14 @@ import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.advancements.AdvancementTab
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
+import javax.lang.model.element.Modifier
 
 @Patch(_AdvancementWidget::class, side = Side.ClientOnly)
 abstract class AdvancementWidgetPatch {
 
     private val advancementsScreen: AdvancementsScreen get() = tab.screen
 
-    @Shadow
+    @KShadow(Modifier.PRIVATE, Modifier.FINAL)
     abstract val tab: AdvancementTab
 
     @Hook(_AdvancementWidget.extractHover::class, At.Local)

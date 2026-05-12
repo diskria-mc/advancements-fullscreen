@@ -14,38 +14,39 @@ object FullscreenRenderer {
 
     private val atlasSprite: TextureAtlasSprite by lazy {
         _TextureAtlasSprite.newInstance(
-            _AdvancementsScreen.WINDOW_LOCATION.value,
-            SpriteContents(
-                _AdvancementsScreen.WINDOW_LOCATION.value,
-                FrameSize(
-                    AdvancementsScreen.WINDOW_WIDTH,
-                    AdvancementsScreen.WINDOW_HEIGHT,
+            identifier = _AdvancementsScreen.WINDOW_LOCATION.value,
+            contents = SpriteContents(
+                /* name = */ _AdvancementsScreen.WINDOW_LOCATION.value,
+                /* frameSize = */ FrameSize(
+                    /* width = */ AdvancementsScreen.WINDOW_WIDTH,
+                    /* height = */ AdvancementsScreen.WINDOW_HEIGHT,
                 ),
-                NativeImage(
-                    _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH.value,
-                    _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT.value,
-                    false,
+                /* image = */ NativeImage(
+                    /* width = */ _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH.value,
+                    /* height = */ _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT.value,
+                    /* zero = */ false,
                 )
             ),
-            _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH.value,
-            _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT.value,
-            0,
-            0,
-            0,
+            atlasWidth = _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH.value,
+            atlasHeight = _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT.value,
+            x = 0,
+            y = 0,
+            padding = 0,
         )
     }
 
     private val nineSlice: GuiSpriteScaling.NineSlice by lazy {
         val shadowDepth = 6
         GuiSpriteScaling.NineSlice(
-            AdvancementsScreen.WINDOW_WIDTH, AdvancementsScreen.WINDOW_HEIGHT,
+            /* width = */ AdvancementsScreen.WINDOW_WIDTH, /* height = */ AdvancementsScreen.WINDOW_HEIGHT,
+            /* border = */
             GuiSpriteScaling.NineSlice.Border(
-                _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
-                _AdvancementsScreen.WINDOW_INSIDE_Y.value + shadowDepth,
-                _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
-                _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
+                /* left = */ _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
+                /* top = */ _AdvancementsScreen.WINDOW_INSIDE_Y.value + shadowDepth,
+                /* right = */ _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
+                /* bottom = */ _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
             ),
-            true,
+            /* stretchInner = */ true,
         )
     }
 
@@ -56,12 +57,12 @@ object FullscreenRenderer {
         width: Int, height: Int,
     ) {
         graphics.blitNineSlicedSprite(
-            pipeline,
-            atlasSprite,
-            nineSlice,
-            x, y,
-            width, height,
-            -1,
+            renderPipeline = pipeline,
+            textureAtlasSprite = atlasSprite,
+            nineSlice = nineSlice,
+            x = x, y = y,
+            width = width, height = height,
+            color = -1,
         )
     }
 }

@@ -10,11 +10,12 @@ import net.minecraft.client.gui.layouts.LayoutElement
 import net.minecraft.client.gui.screens.advancements.AdvancementTab
 import net.minecraft.client.gui.screens.advancements.AdvancementTabType
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
+import javax.lang.model.element.Modifier
 
 @Patch(_AdvancementsScreen::class, side = Side.ClientOnly)
 abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
-    @Shadow(final = true)
+    @KShadow(Modifier.PRIVATE, Modifier.FINAL)
     abstract val tabs: Map<AdvancementHolder, AdvancementTab>
 
     @Extension
@@ -91,10 +92,10 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     @AtCall(_GuiGraphics.blit::class, ordinal = [0])
     fun overrideWindowBackgroundRender(@Origin original: Lapis.Call<_GuiGraphics.blit>) {
         FullscreenRenderer.render(
-            original.getReceiver(),
-            original.renderPipeline,
-            original.x, original.y,
-            fullscreenWindowWidth, fullscreenWindowHeight,
+            graphics = original.getReceiver(),
+            pipeline = original.renderPipeline,
+            x = original.x, y = original.y,
+            width = fullscreenWindowWidth, height = fullscreenWindowHeight,
         )
     }
 
