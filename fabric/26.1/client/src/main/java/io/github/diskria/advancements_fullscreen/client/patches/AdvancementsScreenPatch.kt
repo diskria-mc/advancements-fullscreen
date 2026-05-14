@@ -15,9 +15,6 @@ import javax.lang.model.element.Modifier
 @Patch(_AdvancementsScreen::class, side = Side.ClientOnly)
 abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
-    @KShadow(Modifier.PRIVATE, Modifier.FINAL)
-    abstract val tabs: Map<AdvancementHolder, AdvancementTab>
-
     @Extension
     var fullscreenWindowWidth: Int = 0
         private set
@@ -36,12 +33,11 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
     @Extension
     val fullscreenBackgroundWidth: Int
-        get() = fullscreenWindowWidth - (_AdvancementsScreen.WINDOW_INSIDE_X.value * 2)
+        get() = fullscreenWindowWidth - (_AdvancementsScreen.WINDOW_INSIDE_X() * 2)
 
     @Extension
     val fullscreenBackgroundHeight: Int
-        get() = fullscreenWindowHeight -
-            (_AdvancementsScreen.WINDOW_INSIDE_Y.value + _AdvancementsScreen.WINDOW_INSIDE_X.value)
+        get() = fullscreenWindowHeight - (_AdvancementsScreen.WINDOW_INSIDE_Y() + _AdvancementsScreen.WINDOW_INSIDE_X())
 
     @Extension
     val horizontalTabOffset: Int
@@ -74,7 +70,7 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     @Hook(_AdvancementsScreen.repositionElements::class, At.Body)
     fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.repositionElements>) {
         original()
-        tabs.values.forEach { it.centered = false }
+        tabs.values.forEach { it.centered(false) }
         updateFullscreenUI()
     }
 
@@ -151,6 +147,9 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     @Hook(_AdvancementsScreen.extractInside::class, At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [1])
     fun overrideVerySadLabelY(): Int = fullscreenBackgroundHeight
+
+    @KShadow(Modifier.PRIVATE, Modifier.FINAL)
+    abstract val tabs: Map<AdvancementHolder, AdvancementTab>
 
     companion object {
         private const val SCREEN_MARGIN: Int = 4

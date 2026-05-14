@@ -2,7 +2,7 @@ package io.github.diskria.advancements_fullscreen.client.patches
 
 import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementWidget
 import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementsScreen
-import io.github.diskria.advancements_fullscreen.client.schemas.value
+import io.github.diskria.advancements_fullscreen.client.schemas.invoke
 import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.advancements.AdvancementTab
@@ -13,9 +13,6 @@ import javax.lang.model.element.Modifier
 abstract class AdvancementWidgetPatch {
 
     private val advancementsScreen: AdvancementsScreen get() = tab.screen
-
-    @KShadow(Modifier.PRIVATE, Modifier.FINAL)
-    abstract val tab: AdvancementTab
 
     @Hook(_AdvancementWidget.extractHover::class, At.Local)
     @AtLocal(
@@ -29,26 +26,21 @@ abstract class AdvancementWidgetPatch {
         @Local titleBarBottom: Int,
         @Local descriptionTextHeight: Int,
         @Local descriptionHeight: Int,
-    ): Boolean {
+    ): Boolean = with(advancementsScreen) {
         val hoverBottom = titleBarBottom + descriptionHeight
         val hoverTop = titleTop - descriptionTextHeight + 1
-
-        val backgroundBottom = advancementsScreen.fullscreenBackgroundHeight
         val backgroundTop = descriptionHeight - descriptionTextHeight
-
-        val verticalMargin = advancementsScreen.fullscreenVerticalMargin
-        val windowBottom = advancementsScreen.fullscreenBackgroundHeight + _AdvancementsScreen.WINDOW_INSIDE_Y.value +
-            verticalMargin
-        val windowTop = _AdvancementsScreen.WINDOW_INSIDE_X.value.unaryMinus() - verticalMargin
-
+        val windowBottom = fullscreenBackgroundHeight + _AdvancementsScreen.WINDOW_INSIDE_Y() + fullscreenVerticalMargin
+        val windowTop = -(_AdvancementsScreen.WINDOW_INSIDE_X() + fullscreenVerticalMargin)
         return when {
-            hoverBottom < backgroundBottom -> false
+            hoverBottom < fullscreenBackgroundHeight -> false
             hoverTop >= backgroundTop -> true
-
             hoverBottom <= windowBottom -> false
             hoverTop >= windowTop -> true
-
             else -> Minecraft.getInstance().hasAltDown()
         }
     }
+
+    @KShadow(Modifier.PRIVATE, Modifier.FINAL)
+    abstract val tab: AdvancementTab
 }

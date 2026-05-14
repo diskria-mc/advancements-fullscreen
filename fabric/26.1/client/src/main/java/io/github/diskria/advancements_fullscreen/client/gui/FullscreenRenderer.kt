@@ -2,7 +2,10 @@ package io.github.diskria.advancements_fullscreen.client.gui
 
 import com.mojang.blaze3d.pipeline.RenderPipeline
 import com.mojang.blaze3d.platform.NativeImage
-import io.github.diskria.advancements_fullscreen.client.schemas.*
+import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementsScreen
+import io.github.diskria.advancements_fullscreen.client.schemas._TextureAtlasSprite
+import io.github.diskria.advancements_fullscreen.client.schemas.blitNineSlicedSprite
+import io.github.diskria.advancements_fullscreen.client.schemas.invoke
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import net.minecraft.client.renderer.texture.SpriteContents
@@ -14,21 +17,21 @@ object FullscreenRenderer {
 
     private val atlasSprite: TextureAtlasSprite by lazy {
         _TextureAtlasSprite.newInstance(
-            identifier = _AdvancementsScreen.WINDOW_LOCATION.value,
+            identifier = _AdvancementsScreen.WINDOW_LOCATION(),
             contents = SpriteContents(
-                /* name = */ _AdvancementsScreen.WINDOW_LOCATION.value,
+                /* name = */ _AdvancementsScreen.WINDOW_LOCATION(),
                 /* frameSize = */ FrameSize(
                     /* width = */ AdvancementsScreen.WINDOW_WIDTH,
                     /* height = */ AdvancementsScreen.WINDOW_HEIGHT,
                 ),
                 /* image = */ NativeImage(
-                    /* width = */ _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH.value,
-                    /* height = */ _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT.value,
+                    /* width = */ _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH(),
+                    /* height = */ _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT(),
                     /* zero = */ false,
                 )
             ),
-            atlasWidth = _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH.value,
-            atlasHeight = _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT.value,
+            atlasWidth = _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH(),
+            atlasHeight = _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT(),
             x = 0,
             y = 0,
             padding = 0,
@@ -41,10 +44,10 @@ object FullscreenRenderer {
             /* width = */ AdvancementsScreen.WINDOW_WIDTH, /* height = */ AdvancementsScreen.WINDOW_HEIGHT,
             /* border = */
             GuiSpriteScaling.NineSlice.Border(
-                /* left = */ _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
-                /* top = */ _AdvancementsScreen.WINDOW_INSIDE_Y.value + shadowDepth,
-                /* right = */ _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
-                /* bottom = */ _AdvancementsScreen.WINDOW_INSIDE_X.value + shadowDepth,
+                /* left = */ _AdvancementsScreen.WINDOW_INSIDE_X() + shadowDepth,
+                /* top = */ _AdvancementsScreen.WINDOW_INSIDE_Y() + shadowDepth,
+                /* right = */ _AdvancementsScreen.WINDOW_INSIDE_X() + shadowDepth,
+                /* bottom = */ _AdvancementsScreen.WINDOW_INSIDE_X() + shadowDepth,
             ),
             /* stretchInner = */ true,
         )

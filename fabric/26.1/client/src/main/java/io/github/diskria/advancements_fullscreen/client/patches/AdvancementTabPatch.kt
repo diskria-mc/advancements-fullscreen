@@ -10,9 +10,6 @@ abstract class AdvancementTabPatch {
 
     private val advancementsScreen: AdvancementsScreen get() = getScreen()
 
-    @KShadow(Modifier.PUBLIC)
-    abstract fun getScreen(): AdvancementsScreen
-
     @Hook(_AdvancementTab.scroll::class, At.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
     fun overrideScrollXLimit(): Int = advancementsScreen.fullscreenBackgroundWidth
@@ -60,4 +57,7 @@ abstract class AdvancementTabPatch {
     @Hook(_AdvancementTab.extractContents::class, At.Literal)
     @AtLiteral(int = AdvancementsScreen.BACKGROUND_TILE_COUNT_Y + 1, ordinal = [0])
     fun overrideBackgroundRows(): Int = advancementsScreen.fullscreenBackgroundHeight / 16 + 1
+
+    @KShadow(Modifier.PUBLIC)
+    abstract fun getScreen(): AdvancementsScreen
 }
