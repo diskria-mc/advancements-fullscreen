@@ -12,17 +12,17 @@ abstract class AdvancementTabTypePatch(@Origin val type: AdvancementTabType) {
 
     private val advancementsScreen: AdvancementsScreen? get() = Minecraft.getInstance().screen as? AdvancementsScreen
 
-    @Hook(_AdvancementTabType.getX::class, At.Literal)
+    @Hook(_AdvancementTabType.getX::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH - 4, ordinal = [0])
     fun overrideRightX(@Origin original: Int): Int =
         advancementsScreen?.let { it.fullscreenWindowWidth - it.horizontalTabOffset } ?: original
 
-    @Hook(_AdvancementTabType.getY::class, At.Literal)
+    @Hook(_AdvancementTabType.getY::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT - 4, ordinal = [0])
     fun overrideBelowY(@Origin original: Int): Int =
         advancementsScreen?.let { it.fullscreenWindowHeight - it.verticalTabOffset } ?: original
 
-    @Hook(_AdvancementTabType.extractRenderState::class, At.Call)
+    @Hook(_AdvancementTabType.extractRenderState::class, Ats.Call)
     @AtCall(_GuiGraphics.blitSprite::class, ordinal = [0])
     fun fixSpriteAlignment(
         @Origin original: Lapis.Call<_GuiGraphics.blitSprite>,

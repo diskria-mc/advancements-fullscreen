@@ -14,7 +14,7 @@ abstract class AdvancementWidgetPatch {
 
     private val advancementsScreen: AdvancementsScreen get() = tab.screen
 
-    @Hook(_AdvancementWidget.extractHover::class, At.Local)
+    @Hook(_AdvancementWidget.extractHover::class, Ats.Local)
     @AtLocal(
         op = Op.Set,
         type = Boolean::class,

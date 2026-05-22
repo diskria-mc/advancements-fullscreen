@@ -1,11 +1,7 @@
 package io.github.diskria.advancements_fullscreen.client.schemas
 
 import io.github.diskria.advancements_fullscreen.generated.Lapis
-import io.github.recrafter.lapis.annotations.Access
-import io.github.recrafter.lapis.annotations.AccessStrategy
-import io.github.recrafter.lapis.annotations.InnerSchema
-import io.github.recrafter.lapis.annotations.Schema
-import io.github.recrafter.lapis.annotations.Side
+import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.gui.GuiGraphicsExtractor
 
 @Access(strategy = AccessStrategy.Tweak)

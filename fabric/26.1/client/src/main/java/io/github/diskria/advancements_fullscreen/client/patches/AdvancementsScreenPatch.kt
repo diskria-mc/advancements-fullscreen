@@ -61,20 +61,20 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
         fullscreenWindowHeight = screen.height - fullscreenVerticalMargin * 2
     }
 
-    @Hook(_AdvancementsScreen.init::class, At.Body)
+    @Hook(_AdvancementsScreen.init::class, Ats.Body)
     fun calculateOnInit(@Origin original: Lapis.Body<_AdvancementsScreen.init>) {
         original()
         updateFullscreenUI()
     }
 
-    @Hook(_AdvancementsScreen.repositionElements::class, At.Body)
+    @Hook(_AdvancementsScreen.repositionElements::class, Ats.Body)
     fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.repositionElements>) {
         original()
         tabs.values.forEach { it.centered(false) }
         updateFullscreenUI()
     }
 
-    @Hook(_AdvancementsScreen.mouseScrolled::class, At.Call)
+    @Hook(_AdvancementsScreen.mouseScrolled::class, Ats.Call)
     @AtCall(_AdvancementTab.scroll::class, ordinal = [0])
     fun invertScrollWhenShiftDown(@Origin original: Lapis.Call<_AdvancementTab.scroll>) {
         if (Minecraft.getInstance().hasShiftDown()) {
@@ -84,7 +84,7 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
         }
     }
 
-    @Hook(_AdvancementsScreen.extractWindow::class, At.Call)
+    @Hook(_AdvancementsScreen.extractWindow::class, Ats.Call)
     @AtCall(_GuiGraphics.blit::class, ordinal = [0])
     fun overrideWindowBackgroundRender(@Origin original: Lapis.Call<_GuiGraphics.blit>) {
         FullscreenRenderer.render(
@@ -95,56 +95,53 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
         )
     }
 
-    @Require(min = 0)
-    @Hook(_AdvancementsScreen.init::class, At.Call)
+    @Hook(_AdvancementsScreen.init::class, Ats.Call)
     @AtCall(_HeaderAndFooterLayout.addTitleHeader::class, ordinal = [0])
     fun hideTitleHeader() {
     }
 
-    @Require(min = 0)
-    @Hook(_AdvancementsScreen.init::class, At.Call)
+    @Hook(_AdvancementsScreen.init::class, Ats.Call)
     @AtCall(_HeaderAndFooterLayout.addToFooter::class, ordinal = [0])
     fun hideFooter(): LayoutElement? = null
 
-    @Require(min = 0)
-    @Hook(_AdvancementsScreen.init::class, At.Call)
+    @Hook(_AdvancementsScreen.init::class, Ats.Call)
     @AtCall(_HeaderAndFooterLayout.visitWidgets::class, ordinal = [0])
     fun hideWidgets() {
     }
 
-    @Hook(_AdvancementsScreen.extractRenderState::class, At.Literal)
+    @Hook(_AdvancementsScreen.extractRenderState::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH, ordinal = [0])
     fun overrideWindowX(): Int = fullscreenWindowWidth
 
-    @Hook(_AdvancementsScreen.extractRenderState::class, At.Literal)
+    @Hook(_AdvancementsScreen.extractRenderState::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT, ordinal = [0])
     fun overrideWindowY(): Int = fullscreenWindowHeight
 
-    @Hook(_AdvancementsScreen.mouseClicked::class, At.Literal)
+    @Hook(_AdvancementsScreen.mouseClicked::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH, ordinal = [0])
     fun overrideClickableAreaX(): Int = fullscreenWindowWidth
 
-    @Hook(_AdvancementsScreen.mouseClicked::class, At.Literal)
+    @Hook(_AdvancementsScreen.mouseClicked::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT, ordinal = [0])
     fun overrideClickableAreaY(): Int = fullscreenWindowHeight
 
-    @Hook(_AdvancementsScreen.extractInside::class, At.Literal)
+    @Hook(_AdvancementsScreen.extractInside::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
     fun overrideEmptyBackgroundWidth(): Int = fullscreenBackgroundWidth
 
-    @Hook(_AdvancementsScreen.extractInside::class, At.Literal)
+    @Hook(_AdvancementsScreen.extractInside::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
     fun overrideEmptyBackgroundHeight(): Int = fullscreenBackgroundHeight
 
-    @Hook(_AdvancementsScreen.extractInside::class, At.Literal)
+    @Hook(_AdvancementsScreen.extractInside::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH / 2, ordinal = [0])
     fun overrideEmptyLabelsX(): Int = fullscreenBackgroundWidth / 2
 
-    @Hook(_AdvancementsScreen.extractInside::class, At.Literal)
+    @Hook(_AdvancementsScreen.extractInside::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT / 2, ordinal = [0])
     fun overrideNoAdvancementsLabelY(): Int = fullscreenBackgroundHeight / 2
 
-    @Hook(_AdvancementsScreen.extractInside::class, At.Literal)
+    @Hook(_AdvancementsScreen.extractInside::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [1])
     fun overrideVerySadLabelY(): Int = fullscreenBackgroundHeight
 
