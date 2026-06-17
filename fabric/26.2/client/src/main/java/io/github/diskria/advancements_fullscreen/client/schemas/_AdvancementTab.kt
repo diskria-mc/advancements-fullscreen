@@ -14,13 +14,13 @@ object _AdvancementTab {
     object centered : Lapis.Field<Boolean>
 
     object scroll : Lapis.Method<(scrollX: Double, scrollY: Double) -> Unit>
+    object tick : Lapis.Method<(relativeMouseX: Int, relativeMouseY: Int) -> Unit>
     object canScrollHorizontally : Lapis.Method<() -> Boolean>
     object canScrollVertically : Lapis.Method<() -> Boolean>
 
     object extractTooltips : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
-        windowX: Int, windowY: Int,
-        x: Int, y: Int,
+        xo: Int, yo: Int,
     ) -> Unit>
 
     object extractContents : Lapis.Method<(

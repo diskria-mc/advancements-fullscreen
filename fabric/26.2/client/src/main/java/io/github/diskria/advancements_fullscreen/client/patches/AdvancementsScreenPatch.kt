@@ -12,24 +12,24 @@ import net.minecraft.client.gui.screens.advancements.AdvancementTabType
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import javax.lang.model.element.Modifier
 
-@Patch(_AdvancementsScreen::class, side = Side.ClientOnly)
+@KMixin(_AdvancementsScreen::class, side = Side.ClientOnly)
 abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
     @Extension
-    var fullscreenWindowWidth: Int = 0
-        private set
+    val fullscreenHorizontalMargin: Int
+        get() = horizontalTabWidth - horizontalTabOffset + SCREEN_MARGIN
 
     @Extension
-    var fullscreenWindowHeight: Int = 0
-        private set
+    val fullscreenVerticalMargin: Int
+        get() = verticalTabHeight - verticalTabOffset + SCREEN_MARGIN
 
     @Extension
-    var fullscreenHorizontalMargin: Int = 0
-        private set
+    val fullscreenWindowWidth: Int
+        get() = screen.width - fullscreenHorizontalMargin * 2
 
     @Extension
-    var fullscreenVerticalMargin: Int = 0
-        private set
+    val fullscreenWindowHeight: Int
+        get() = screen.height - fullscreenVerticalMargin * 2
 
     @Extension
     val fullscreenBackgroundWidth: Int
@@ -52,27 +52,6 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
     private val verticalTabHeight: Int
         get() = AdvancementTabType.ABOVE.height
-
-    private fun updateFullscreenUI() {
-        fullscreenHorizontalMargin = horizontalTabWidth - horizontalTabOffset + SCREEN_MARGIN
-        fullscreenVerticalMargin = verticalTabHeight - verticalTabOffset + SCREEN_MARGIN
-
-        fullscreenWindowWidth = screen.width - fullscreenHorizontalMargin * 2
-        fullscreenWindowHeight = screen.height - fullscreenVerticalMargin * 2
-    }
-
-    @Hook(_AdvancementsScreen.init::class, Ats.Body)
-    fun calculateOnInit(@Origin original: Lapis.Body<_AdvancementsScreen.init>) {
-        original()
-        updateFullscreenUI()
-    }
-
-    @Hook(_AdvancementsScreen.repositionElements::class, Ats.Body)
-    fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.repositionElements>) {
-        original()
-        tabs.values.forEach { it.centered(false) }
-        updateFullscreenUI()
-    }
 
     @Hook(_AdvancementsScreen.mouseScrolled::class, Ats.Call)
     @AtCall(_AdvancementTab.scroll::class, ordinal = [0])
@@ -109,11 +88,11 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     fun hideWidgets() {
     }
 
-    @Hook(_AdvancementsScreen.extractRenderState::class, Ats.Literal)
+    @Hook(_AdvancementsScreen.repositionElements::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH, ordinal = [0])
     fun overrideWindowX(): Int = fullscreenWindowWidth
 
-    @Hook(_AdvancementsScreen.extractRenderState::class, Ats.Literal)
+    @Hook(_AdvancementsScreen.repositionElements::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT, ordinal = [0])
     fun overrideWindowY(): Int = fullscreenWindowHeight
 

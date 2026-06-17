@@ -33,15 +33,8 @@ object _AdvancementsScreen {
 
     object init : Lapis.Method<() -> Unit>
 
-    object extractRenderState : Lapis.Method<(
-        graphics: GuiGraphicsExtractor,
-        x: Int, y: Int,
-        color: Float,
-    ) -> Unit>
-
     object extractInside : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
-        x: Int, y: Int,
     ) -> Unit>
 
     object mouseClicked : Lapis.Method<(
@@ -57,7 +50,6 @@ object _AdvancementsScreen {
 
     object extractWindow : Lapis.Method<(
         graphics: GuiGraphicsExtractor,
-        windowX: Int, windowY: Int,
-        screenX: Int, screenY: Int,
+        mouseX: Int, mouseY: Int,
     ) -> Unit>
 }

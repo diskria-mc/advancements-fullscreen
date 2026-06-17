@@ -6,10 +6,11 @@ import io.github.diskria.advancements_fullscreen.client.schemas.invoke
 import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.advancements.AdvancementTab
+import net.minecraft.client.gui.screens.advancements.AdvancementWidget
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import javax.lang.model.element.Modifier
 
-@Patch(_AdvancementWidget::class, side = Side.ClientOnly)
+@KMixin(AdvancementWidget::class, side = Side.ClientOnly)
 abstract class AdvancementWidgetPatch {
 
     private val advancementsScreen: AdvancementsScreen get() = tab.screen
@@ -18,14 +19,14 @@ abstract class AdvancementWidgetPatch {
     @AtLocal(
         op = Op.Set,
         type = Boolean::class,
-        local = Local("topSide"),
+        local = KLocal("topSide"),
         ordinal = [0]
     )
     fun fixHoverOutOfScreen(
-        @Local titleTop: Int,
-        @Local titleBarBottom: Int,
-        @Local descriptionTextHeight: Int,
-        @Local descriptionHeight: Int,
+        @KLocal titleTop: Int,
+        @KLocal titleBarBottom: Int,
+        @KLocal descriptionTextHeight: Int,
+        @KLocal descriptionHeight: Int,
     ): Boolean = with(advancementsScreen) {
         val hoverBottom = titleBarBottom + descriptionHeight
         val hoverTop = titleTop - descriptionTextHeight + 1

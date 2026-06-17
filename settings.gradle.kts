@@ -6,7 +6,7 @@ pluginManagement {
 }
 
 plugins {
-    id("io.github.recrafter.recipe") version "1.2.6"
+    id("io.github.recrafter.recipe") version "1.2.7"
 }
 
 recipe {

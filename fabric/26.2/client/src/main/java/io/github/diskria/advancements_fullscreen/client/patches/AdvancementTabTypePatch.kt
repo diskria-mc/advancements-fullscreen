@@ -7,10 +7,11 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.advancements.AdvancementTabType
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
-@Patch(_AdvancementTabType::class, side = Side.ClientOnly)
+@KMixin(AdvancementTabType::class, side = Side.ClientOnly)
 abstract class AdvancementTabTypePatch(@Origin val type: AdvancementTabType) {
 
-    private val advancementsScreen: AdvancementsScreen? get() = Minecraft.getInstance().screen as? AdvancementsScreen
+    private val advancementsScreen: AdvancementsScreen?
+        get() = Minecraft.getInstance().gui.screen() as? AdvancementsScreen
 
     @Hook(_AdvancementTabType.getX::class, Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH - 4, ordinal = [0])
@@ -26,7 +27,7 @@ abstract class AdvancementTabTypePatch(@Origin val type: AdvancementTabType) {
     @AtCall(_GuiGraphics.blitSprite::class, ordinal = [0])
     fun fixSpriteAlignment(
         @Origin original: Lapis.Call<_GuiGraphics.blitSprite>,
-        @Local sprites: AdvancementTabType.Sprites,
+        @KLocal sprites: AdvancementTabType.Sprites,
     ) {
         original(sprite = advancementsScreen?.let {
             val isVertical = type == AdvancementTabType.ABOVE || type == AdvancementTabType.BELOW
