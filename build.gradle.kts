@@ -7,7 +7,7 @@ crafter {
         name = "Advancements Fullscreen"
         description = "A client-side mod that makes the advancements window bigger by expanding it to full screen. " +
             "Continuation of the Advancements Enlarger mod."
-        version = "2.0.0"
+        version = "2.0.1"
 
         developer {
             name = "diskria"

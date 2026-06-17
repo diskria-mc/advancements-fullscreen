@@ -53,6 +53,12 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     private val verticalTabHeight: Int
         get() = AdvancementTabType.ABOVE.height
 
+    @Hook(_AdvancementsScreen.repositionElements::class, Ats.Body)
+    fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.repositionElements>) {
+        original()
+        tabs.values.forEach { it.centered(false) }
+    }
+
     @Hook(_AdvancementsScreen.mouseScrolled::class, Ats.Call)
     @AtCall(_AdvancementTab.scroll::class, ordinal = [0])
     fun invertScrollWhenShiftDown(@Origin original: Lapis.Call<_AdvancementTab.scroll>) {
