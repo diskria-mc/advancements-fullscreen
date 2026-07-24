@@ -15,7 +15,7 @@ import net.minecraft.client.resources.metadata.gui.GuiSpriteScaling
 
 object FullscreenRenderer {
 
-    private val atlasSprite: TextureAtlasSprite by lazy {
+    private val sprite: TextureAtlasSprite by lazy {
         _TextureAtlasSprite.newInstance(
             identifier = _AdvancementsScreen.WINDOW_LOCATION(),
             contents = SpriteContents(
@@ -60,8 +60,8 @@ object FullscreenRenderer {
         width: Int, height: Int,
     ) {
         graphics.blitNineSlicedSprite(
-            renderPipeline = pipeline,
-            textureAtlasSprite = atlasSprite,
+            pipeline = pipeline,
+            sprite = sprite,
             nineSlice = nineSlice,
             x = x, y = y,
             width = width, height = height,

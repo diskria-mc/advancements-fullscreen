@@ -1,55 +1,52 @@
 package io.github.diskria.advancements_fullscreen.client.schemas
 
-import io.github.diskria.advancements_fullscreen.generated.Lapis
 import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.resources.Identifier
 
-@Schema("net.minecraft.client.gui.screens.advancements.AdvancementsScreen", side = Side.ClientOnly)
+@Class(AdvancementsScreen::class, side = Side.ClientOnly)
 object _AdvancementsScreen {
 
     @Access(field = [Op.Get])
-    @Static
-    object WINDOW_LOCATION : Lapis.Field<Identifier>
+    @Field<Identifier>(static = true)
+    object WINDOW_LOCATION
 
     @Access(field = [Op.Get])
-    @Static
-    object WINDOW_INSIDE_X : Lapis.Field<Int>
+    @Field<Int>(static = true)
+    object WINDOW_INSIDE_X
 
     @Access(field = [Op.Get])
-    @Static
-    object WINDOW_INSIDE_Y : Lapis.Field<Int>
+    @Field<Int>(static = true)
+    object WINDOW_INSIDE_Y
 
     @Access(field = [Op.Get])
-    @Static
-    object BACKGROUND_TEXTURE_WIDTH : Lapis.Field<Int>
+    @Field<Int>(static = true)
+    object BACKGROUND_TEXTURE_WIDTH
 
     @Access(field = [Op.Get])
-    @Static
-    object BACKGROUND_TEXTURE_HEIGHT : Lapis.Field<Int>
+    @Field<Int>(static = true)
+    object BACKGROUND_TEXTURE_HEIGHT
 
-    object width : Lapis.Field<Int>
+    @Field<Int>
+    object width
 
-    object init : Lapis.Method<() -> Unit>
+    @Method<() -> Unit>
+    object init
 
-    object extractInside : Lapis.Method<(
-        graphics: GuiGraphicsExtractor,
-    ) -> Unit>
+    @Method<(graphics: GuiGraphicsExtractor) -> Unit>
+    object extractInside
 
-    object mouseClicked : Lapis.Method<(
-        mouseButtonEvent: MouseButtonEvent, isDouble: Boolean
-    ) -> Boolean>
+    @Method<(mouseButtonEvent: MouseButtonEvent, isDouble: Boolean) -> Boolean>
+    object mouseClicked
 
-    object mouseScrolled : Lapis.Method<(
-        x: Double, y: Double,
-        dx: Double, dy: Double,
-    ) -> Boolean>
+    @Method<(x: Double, y: Double, dx: Double, dy: Double) -> Boolean>
+    object mouseScrolled
 
-    object repositionElements : Lapis.Method<() -> Unit>
+    @Method<() -> Unit>
+    object repositionElements
 
-    object extractWindow : Lapis.Method<(
-        graphics: GuiGraphicsExtractor,
-        mouseX: Int, mouseY: Int,
-    ) -> Unit>
+    @Method<(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int) -> Unit>
+    object extractWindow
 }

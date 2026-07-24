@@ -1,30 +1,32 @@
 package io.github.diskria.advancements_fullscreen.client.schemas
 
-import io.github.diskria.advancements_fullscreen.generated.Lapis
-import io.github.recrafter.lapis.annotations.Access
-import io.github.recrafter.lapis.annotations.Op
-import io.github.recrafter.lapis.annotations.Schema
-import io.github.recrafter.lapis.annotations.Side
+import io.github.recrafter.lapis.annotations.*
 import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.gui.screens.advancements.AdvancementTab
 
-@Schema("net.minecraft.client.gui.screens.advancements.AdvancementTab", side = Side.ClientOnly)
+@Class(AdvancementTab::class, side = Side.ClientOnly)
 object _AdvancementTab {
 
+    @MappingName("centered")
     @Access(field = [Op.Set])
-    object centered : Lapis.Field<Boolean>
+    @Field<Boolean>
+    object isCenterSet
 
-    object scroll : Lapis.Method<(scrollX: Double, scrollY: Double) -> Unit>
-    object tick : Lapis.Method<(relativeMouseX: Int, relativeMouseY: Int) -> Unit>
-    object canScrollHorizontally : Lapis.Method<() -> Boolean>
-    object canScrollVertically : Lapis.Method<() -> Boolean>
+    @Method<(scrollX: Double, scrollY: Double) -> Unit>
+    object scroll
 
-    object extractTooltips : Lapis.Method<(
-        graphics: GuiGraphicsExtractor,
-        xo: Int, yo: Int,
-    ) -> Unit>
+    @Method<(relativeMouseX: Int, relativeMouseY: Int) -> Unit>
+    object tick
 
-    object extractContents : Lapis.Method<(
-        graphics: GuiGraphicsExtractor,
-        x: Int, y: Int,
-    ) -> Unit>
+    @Method<() -> Boolean>
+    object canScrollHorizontally
+
+    @Method<() -> Boolean>
+    object canScrollVertically
+
+    @Method<(graphics: GuiGraphicsExtractor, xo: Int, yo: Int) -> Unit>
+    object extractTooltips
+
+    @Method<(graphics: GuiGraphicsExtractor, x: Int, y: Int) -> Unit>
+    object extractContents
 }

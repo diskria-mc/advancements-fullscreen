@@ -10,15 +10,14 @@ import net.minecraft.client.gui.screens.advancements.AdvancementWidget
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import javax.lang.model.element.Modifier
 
-@KMixin(AdvancementWidget::class, side = Side.ClientOnly)
+@Patch(AdvancementWidget::class, side = Side.ClientOnly)
 abstract class AdvancementWidgetPatch {
 
     private val advancementsScreen: AdvancementsScreen get() = tab.screen
 
-    @Hook(_AdvancementWidget.extractHover::class, Ats.Local)
-    @AtLocal(
+    @Hook<_AdvancementWidget.extractHover>(Ats.Local)
+    @AtLocal<Boolean>(
         op = Op.Set,
-        type = Boolean::class,
         local = KLocal("topSide"),
         ordinal = [0]
     )
