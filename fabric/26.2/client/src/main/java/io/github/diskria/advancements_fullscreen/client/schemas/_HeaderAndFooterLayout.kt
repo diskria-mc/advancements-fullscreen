@@ -11,14 +11,14 @@ import net.minecraft.network.chat.Component
 import java.util.function.Consumer
 
 @Class(HeaderAndFooterLayout::class, side = Side.ClientOnly)
-object _HeaderAndFooterLayout {
+interface _HeaderAndFooterLayout {
 
     @Method<(component: Component, font: Font) -> Unit>
-    object addTitleHeader
+    interface addTitleHeader
 
     @Method<(element: LayoutElement) -> LayoutElement>
-    object addToFooter
+    interface addToFooter
 
     @Method<(consumer: Consumer<AbstractWidget>) -> Unit>
-    object visitWidgets
+    interface visitWidgets
 }

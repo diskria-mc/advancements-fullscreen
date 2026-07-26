@@ -7,8 +7,8 @@ import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.advancements.AdvancementWidget
 
 @Class(AdvancementWidget::class, side = Side.ClientOnly)
-object _AdvancementWidget {
+interface _AdvancementWidget {
 
     @Method<(graphics: GuiGraphicsExtractor, scrollX: Int, scrollY: Int, fade: Float, x: Int, y: Int) -> Unit>
-    object extractHover
+    interface extractHover
 }

@@ -11,7 +11,7 @@ import net.minecraft.client.resources.metadata.gui.GuiSpriteScaling
 import net.minecraft.resources.Identifier
 
 @Class(GuiGraphicsExtractor::class, side = Side.ClientOnly)
-object _GuiGraphics {
+interface _GuiGraphics {
 
     @Access
     @Method<(
@@ -22,11 +22,11 @@ object _GuiGraphics {
         width: Int, height: Int,
         color: Int,
     ) -> Unit>
-    object blitNineSlicedSprite
+    interface blitNineSlicedSprite
 
     @Method<(renderPipeline: RenderPipeline, Identifier, x: Int, y: Int, Float, Float, Int, Int, Int, Int) -> Unit>
-    object blit
+    interface blit
 
     @Method<(renderPipeline: RenderPipeline, sprite: Identifier, x: Int, y: Int, width: Int, height: Int) -> Unit>
-    object blitSprite
+    interface blitSprite
 }

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.resources.Identifier
 
 @Class(TextureAtlasSprite::class, side = Side.ClientOnly)
-object _TextureAtlasSprite {
+interface _TextureAtlasSprite {
 
     @Access
     @Constructor<(

@@ -7,7 +7,7 @@ import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.resources.Identifier
 
 @Class(AdvancementsScreen::class, side = Side.ClientOnly)
-object _AdvancementsScreen {
+interface _AdvancementsScreen {
 
     @Access(field = [Op.Get])
     @Field<Identifier>(static = true)
@@ -30,23 +30,23 @@ object _AdvancementsScreen {
     object BACKGROUND_TEXTURE_HEIGHT
 
     @Field<Int>
-    object width
+    interface width
 
     @Method<() -> Unit>
-    object init
+    interface init
 
     @Method<(graphics: GuiGraphicsExtractor) -> Unit>
-    object extractInside
+    interface extractInside
 
     @Method<(mouseButtonEvent: MouseButtonEvent, isDouble: Boolean) -> Boolean>
-    object mouseClicked
+    interface mouseClicked
 
     @Method<(x: Double, y: Double, dx: Double, dy: Double) -> Boolean>
-    object mouseScrolled
+    interface mouseScrolled
 
     @Method<() -> Unit>
-    object repositionElements
+    interface repositionElements
 
     @Method<(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int) -> Unit>
-    object extractWindow
+    interface extractWindow
 }

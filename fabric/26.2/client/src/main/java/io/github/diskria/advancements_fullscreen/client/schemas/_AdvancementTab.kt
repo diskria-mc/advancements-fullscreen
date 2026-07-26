@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.advancements.AdvancementTab
 
 @Class(AdvancementTab::class, side = Side.ClientOnly)
-object _AdvancementTab {
+interface _AdvancementTab {
 
     @MappingName("centered")
     @Access(field = [Op.Set])
@@ -13,20 +13,20 @@ object _AdvancementTab {
     object isCenterSet
 
     @Method<(scrollX: Double, scrollY: Double) -> Unit>
-    object scroll
+    interface scroll
 
     @Method<(relativeMouseX: Int, relativeMouseY: Int) -> Unit>
-    object tick
+    interface tick
 
     @Method<() -> Boolean>
-    object canScrollHorizontally
+    interface canScrollHorizontally
 
     @Method<() -> Boolean>
-    object canScrollVertically
+    interface canScrollVertically
 
     @Method<(graphics: GuiGraphicsExtractor, xo: Int, yo: Int) -> Unit>
-    object extractTooltips
+    interface extractTooltips
 
     @Method<(graphics: GuiGraphicsExtractor, x: Int, y: Int) -> Unit>
-    object extractContents
+    interface extractContents
 }

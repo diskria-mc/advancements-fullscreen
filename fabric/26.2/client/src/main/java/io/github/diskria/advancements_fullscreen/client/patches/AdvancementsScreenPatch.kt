@@ -61,7 +61,7 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
 
     @Hook<_AdvancementsScreen.mouseScrolled>(Ats.Call)
     @AtCall<_AdvancementTab.scroll>(ordinal = [0])
-    fun invertScrollWhenShiftDown(@Origin original: Lapis.Call<_AdvancementTab.scroll>) {
+    fun AdvancementsScreen.invertScrollWhenShiftDown(@Origin original: Lapis.Call<_AdvancementTab.scroll>) {
         if (Minecraft.getInstance().hasShiftDown()) {
             original(scrollX = original.scrollY, scrollY = 0.toDouble())
         } else {
