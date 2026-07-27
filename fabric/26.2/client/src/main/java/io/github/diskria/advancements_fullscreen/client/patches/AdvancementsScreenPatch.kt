@@ -60,8 +60,8 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     }
 
     @Hook<_AdvancementsScreen.mouseScrolled>(Ats.Call)
-    @AtCall<_AdvancementTab.scroll>(ordinal = [0])
-    fun AdvancementsScreen.invertScrollWhenShiftDown(@Origin original: Lapis.Call<_AdvancementTab.scroll>) {
+    @AtCall<_AdvancementTab.scroll>
+    fun invertScrollWhenShiftDown(@Origin original: Lapis.Call<_AdvancementTab.scroll>) {
         if (Minecraft.getInstance().hasShiftDown()) {
             original(scrollX = original.scrollY, scrollY = 0.toDouble())
         } else {
@@ -70,7 +70,7 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     }
 
     @Hook<_AdvancementsScreen.extractWindow>(Ats.Call)
-    @AtCall<_GuiGraphics.blit>(ordinal = [0])
+    @AtCall<_GuiGraphics.blit>
     fun overrideWindowBackgroundRender(@Origin original: Lapis.Call<_GuiGraphics.blit>) {
         FullscreenRenderer.render(
             graphics = original.getReceiver(),
@@ -81,54 +81,50 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     }
 
     @Hook<_AdvancementsScreen.init>(Ats.Call)
-    @AtCall<_HeaderAndFooterLayout.addTitleHeader>(ordinal = [0])
+    @AtCall<_HeaderAndFooterLayout.addTitleHeader>
     fun hideTitleHeader() {
     }
 
     @Hook<_AdvancementsScreen.init>(Ats.Call)
-    @AtCall<_HeaderAndFooterLayout.addToFooter>(ordinal = [0])
+    @AtCall<_HeaderAndFooterLayout.addToFooter>
     fun hideFooter(): LayoutElement? = null
 
     @Hook<_AdvancementsScreen.init>(Ats.Call)
-    @AtCall<_HeaderAndFooterLayout.visitWidgets>(ordinal = [0])
+    @AtCall<_HeaderAndFooterLayout.visitWidgets>
     fun hideWidgets() {
     }
 
     @Hook<_AdvancementsScreen.repositionElements>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH)
     fun overrideWindowX(): Int = fullscreenWindowWidth
 
     @Hook<_AdvancementsScreen.repositionElements>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT)
     fun overrideWindowY(): Int = fullscreenWindowHeight
 
     @Hook<_AdvancementsScreen.mouseClicked>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH)
     fun overrideClickableAreaX(): Int = fullscreenWindowWidth
 
     @Hook<_AdvancementsScreen.mouseClicked>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT)
     fun overrideClickableAreaY(): Int = fullscreenWindowHeight
 
     @Hook<_AdvancementsScreen.extractInside>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH)
     fun overrideEmptyBackgroundWidth(): Int = fullscreenBackgroundWidth
 
     @Hook<_AdvancementsScreen.extractInside>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT)
     fun overrideEmptyBackgroundHeight(): Int = fullscreenBackgroundHeight
 
     @Hook<_AdvancementsScreen.extractInside>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH / 2, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_WIDTH / 2)
     fun overrideEmptyLabelsX(): Int = fullscreenBackgroundWidth / 2
 
     @Hook<_AdvancementsScreen.extractInside>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT / 2, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT / 2)
     fun overrideNoAdvancementsLabelY(): Int = fullscreenBackgroundHeight / 2
-
-    @Hook<_AdvancementsScreen.extractInside>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT, ordinal = [1])
-    fun overrideVerySadLabelY(): Int = fullscreenBackgroundHeight
 
     @KShadow(Modifier.PRIVATE, Modifier.FINAL)
     abstract val tabs: Map<AdvancementHolder, AdvancementTab>

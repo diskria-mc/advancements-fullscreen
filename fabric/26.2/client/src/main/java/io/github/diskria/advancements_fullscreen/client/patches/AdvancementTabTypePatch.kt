@@ -7,24 +7,24 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.advancements.AdvancementTabType
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 
-@Patch(AdvancementTabType::class, side = Side.ClientOnly)
+@Patch(_AdvancementTabType::class, side = Side.ClientOnly)
 abstract class AdvancementTabTypePatch(@Origin val type: AdvancementTabType) {
 
     private val advancementsScreen: AdvancementsScreen?
         get() = Minecraft.getInstance().gui.screen() as? AdvancementsScreen
 
     @Hook<_AdvancementTabType.getX>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH - 4, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_WIDTH - 4)
     fun overrideRightX(@Origin original: Int): Int =
         advancementsScreen?.let { it.fullscreenWindowWidth - it.horizontalTabOffset } ?: original
 
     @Hook<_AdvancementTabType.getY>(Ats.Literal)
-    @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT - 4, ordinal = [0])
+    @AtLiteral(int = AdvancementsScreen.WINDOW_HEIGHT - 4)
     fun overrideBelowY(@Origin original: Int): Int =
         advancementsScreen?.let { it.fullscreenWindowHeight - it.verticalTabOffset } ?: original
 
     @Hook<_AdvancementTabType.extractRenderState>(Ats.Call)
-    @AtCall<_GuiGraphics.blitSprite>(ordinal = [0])
+    @AtCall<_GuiGraphics.blitSprite>
     fun fixSpriteAlignment(
         @Origin original: Lapis.Call<_GuiGraphics.blitSprite>,
         @KLocal sprites: AdvancementTabType.Sprites,
