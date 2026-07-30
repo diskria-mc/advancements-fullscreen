@@ -2,7 +2,6 @@ package io.github.diskria.advancements_fullscreen.client.patches
 
 import io.github.diskria.advancements_fullscreen.client.schemas._AdvancementTab
 import io.github.recrafter.lapis.annotations.*
-import net.minecraft.client.gui.screens.advancements.AdvancementTab
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen
 import javax.lang.model.element.Modifier
 
@@ -26,9 +25,6 @@ abstract class AdvancementTabPatch {
     @Hook<_AdvancementTab.tick>(Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.WINDOW_INSIDE_HEIGHT)
     fun overrideTickYLimit(): Int = advancementsScreen.fullscreenBackgroundHeight
-
-    @KShadow(Modifier.PRIVATE)
-    abstract val fade: Float
 
     @Hook<_AdvancementTab.tick>(Ats.Literal)
     @AtLiteral(float = 0.06f)
@@ -85,6 +81,9 @@ abstract class AdvancementTabPatch {
     @Hook<_AdvancementTab.extractContents>(Ats.Literal)
     @AtLiteral(int = AdvancementsScreen.BACKGROUND_TILE_COUNT_Y + 1)
     fun overrideBackgroundRows(): Int = advancementsScreen.fullscreenBackgroundHeight / 16 + 1
+
+    @KShadow(Modifier.PRIVATE)
+    abstract val fade: Float
 
     @KShadow(Modifier.PUBLIC)
     abstract fun getScreen(): AdvancementsScreen

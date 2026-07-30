@@ -37,7 +37,6 @@ abstract class AdvancementWidgetPatch {
         }
     }
 
-
     @KShadow(Modifier.PRIVATE, Modifier.FINAL)
     abstract val tab: AdvancementTab
 }

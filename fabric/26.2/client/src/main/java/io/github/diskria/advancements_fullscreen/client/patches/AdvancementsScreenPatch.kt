@@ -56,7 +56,7 @@ abstract class AdvancementsScreenPatch(@Origin val screen: AdvancementsScreen) {
     @Hook<_AdvancementsScreen.repositionElements>(Ats.Body)
     fun calculateOnReposition(@Origin original: Lapis.Body<_AdvancementsScreen.repositionElements>) {
         original()
-        tabs.values.forEach { it.isCenterSet(false) }
+        tabs.values.forEach { it.isCentered(false) }
     }
 
     @Hook<_AdvancementsScreen.mouseScrolled>(Ats.Call)

@@ -10,7 +10,7 @@ interface _AdvancementTab {
     @MappingName("centered")
     @Access(field = [Op.Set])
     @Field<Boolean>
-    object isCenterSet
+    object isCentered
 
     @Method<(scrollX: Double, scrollY: Double) -> Unit>
     interface scroll

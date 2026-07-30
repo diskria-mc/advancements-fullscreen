@@ -32,8 +32,7 @@ object FullscreenRenderer {
             ),
             atlasWidth = _AdvancementsScreen.BACKGROUND_TEXTURE_WIDTH(),
             atlasHeight = _AdvancementsScreen.BACKGROUND_TEXTURE_HEIGHT(),
-            x = 0,
-            y = 0,
+            x = 0, y = 0,
             padding = 0,
         )
     }
